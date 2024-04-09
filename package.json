@@ -24,8 +24,8 @@
     "editorType": [
       "figma"
     ],
-    "id": "preact-tailwindcss",
-    "name": "Preact Tailwind Css",
+    "id": "buildkite-command-design",
+    "name": "Command + Design",
     "main": "src/main.ts",
     "ui": "src/ui.tsx"
   }

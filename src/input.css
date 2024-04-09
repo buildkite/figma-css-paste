@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+form {
+  height: auto;
+}
+
+textarea {
+  resize: none;
+}
+
+::selection {
+  background-color: #36577d;
+  color: #fff;
+}
