@@ -2,6 +2,7 @@ declare const styles: {
   readonly "bg-figma-gray-light": string;
   readonly "bg-transparent": string;
   readonly "border": string;
+  readonly "filter": string;
   readonly "flex": string;
   readonly "flex-1": string;
   readonly "flex-col": string;

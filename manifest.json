@@ -1,8 +1,8 @@
 {
   "api": "1.0.0",
   "editorType": ["figma"],
-  "id": "buildkite-command-design",
-  "name": "⌘ + Design",
+  "id": "buildkite-css-paint",
+  "name": "CSS Paint",
   "main": "build/main.js",
   "ui": "build/ui.js"
 }

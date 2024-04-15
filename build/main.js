@@ -115,6 +115,60 @@ var init_lib = __esm({
   }
 });
 
+// src/utils/extract.ts
+function extractCSSProperty(css, property) {
+  const regex = new RegExp(`${property}:\\s*(.*?)\\s*;`);
+  const match = css.match(regex);
+  return match ? match[1] : null;
+}
+var init_extract = __esm({
+  "src/utils/extract.ts"() {
+    "use strict";
+  }
+});
+
+// src/utils/css/color.ts
+function applyTextColor(node, color) {
+  if (node.type === "TEXT") {
+    const newFill = figma.util.solidPaint(color);
+    node.fills = [newFill];
+  } else if ("children" in node) {
+    node.findAll((n) => n.type === "TEXT").forEach((textNode) => {
+      const newFill = figma.util.solidPaint(color);
+      textNode.fills = [newFill];
+    });
+  }
+}
+var init_color = __esm({
+  "src/utils/css/color.ts"() {
+    "use strict";
+  }
+});
+
+// src/utils/css/background.ts
+function applyBackgroundColor(node, color) {
+  if (node.type !== "TEXT" && fillableNodeTypes.includes(node.type)) {
+    const newFill = figma.util.solidPaint(color);
+    node.fills = [newFill];
+  }
+}
+var fillableNodeTypes;
+var init_background = __esm({
+  "src/utils/css/background.ts"() {
+    "use strict";
+    fillableNodeTypes = [
+      "RECTANGLE",
+      "ELLIPSE",
+      "POLYGON",
+      "STAR",
+      "VECTOR",
+      "FRAME",
+      "COMPONENT",
+      "INSTANCE"
+    ];
+  }
+});
+
 // src/main.ts
 var main_exports = {};
 __export(main_exports, {
@@ -122,17 +176,34 @@ __export(main_exports, {
 });
 function main_default() {
   const options = { width: 300, height: 360 };
-  const data = { greeting: "Yoooooo" };
   on("RESIZE_WINDOW", function(windowSize) {
     const { width, height } = windowSize;
     figma.ui.resize(width, height);
   });
-  showUI(options, data);
+  on("APPLY_CSS", (css) => {
+    const textColor = extractCSSProperty(css, "color");
+    const bgColor = extractCSSProperty(css, "background-color");
+    const selectedNodes = figma.currentPage.selection;
+    if (textColor) {
+      selectedNodes.forEach((node) => {
+        applyTextColor(node, textColor);
+      });
+    }
+    if (bgColor) {
+      selectedNodes.forEach((node) => {
+        applyBackgroundColor(node, bgColor);
+      });
+    }
+  });
+  showUI(options);
 }
 var init_main = __esm({
   "src/main.ts"() {
     "use strict";
     init_lib();
+    init_extract();
+    init_color();
+    init_background();
   }
 });
 
