@@ -1,4 +1,4 @@
-import { applyTextColor } from "./color";
+import chroma from "chroma-js";
 
 type ModifiableGeometryMixin = Omit<
   GeometryMixin,
@@ -25,7 +25,7 @@ function applyBorderShorthand(
 ) {
   const numericWidth = parseFloat(width);
 
-  applyProperty(node, "strokes", [figma.util.solidPaint(color)]);
+  applyProperty(node, "strokes", [figma.util.solidPaint(chroma(color).hex())]);
   applyProperty(node, "strokeWeight", numericWidth);
 
   const styles: Record<
@@ -56,7 +56,7 @@ function applyBorderShorthand(
 }
 
 function applyStrokeColor(node: any, color: string) {
-  applyProperty(node, "strokes", [figma.util.solidPaint(color)]);
+  applyProperty(node, "strokes", [figma.util.solidPaint(chroma(color).hex())]);
 }
 
 function applyStrokeWidth(node: GeometryMixin, width: string) {

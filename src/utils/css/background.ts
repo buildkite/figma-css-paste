@@ -1,3 +1,5 @@
+import chroma from "chroma-js";
+
 const fillableNodeTypes = [
   "RECTANGLE",
   "ELLIPSE",
@@ -11,7 +13,7 @@ const fillableNodeTypes = [
 
 export function applyBackgroundColor(node: any, color: string) {
   if (node.type !== "TEXT" && fillableNodeTypes.includes(node.type)) {
-    const newFill = figma.util.solidPaint(color);
+    const newFill = figma.util.solidPaint(chroma(color).hex());
     node.fills = [newFill];
   }
 }
