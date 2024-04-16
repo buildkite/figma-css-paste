@@ -56,9 +56,11 @@ function applyBorderShorthand(
 }
 
 function applyStrokeColor(node: any, color: string) {
-  if (node.type === "FRAME" || node.type === "RECTANGLE") {
-    applyProperty(node, "strokes", [figma.util.solidPaint(color)]);
-  }
+  applyProperty(node, "strokes", [figma.util.solidPaint(color)]);
+}
+
+function applyStrokeWidth(node: GeometryMixin, width: string) {
+  applyProperty(node, "strokeWeight", parseFloat(width));
 }
 
 function applyStrokeStyle(node: any, style: Style) {
