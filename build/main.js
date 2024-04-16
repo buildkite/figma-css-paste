@@ -115,14 +115,26 @@ var init_lib = __esm({
   }
 });
 
-// src/utils/extract.ts
+// src/utils/extractStyles.ts
 function extractCSSProperty(css, property) {
   const regex = new RegExp(`${property}:\\s*(.*?)\\s*;`);
   const match = css.match(regex);
   return match ? match[1] : null;
 }
-var init_extract = __esm({
-  "src/utils/extract.ts"() {
+function parseBorderProperty(border) {
+  const properties = border.split(" ");
+  if (properties.length === 3) {
+    const width = properties[0];
+    const style = properties[1];
+    const color = properties[2];
+    if (!isNaN(parseFloat(width)) && ["solid", "dashed", "dotted"].includes(style) && /^#([0-9a-f]{3}){1,2}$/i.test(color)) {
+      return [width, style, color];
+    }
+  }
+  return void 0;
+}
+var init_extractStyles = __esm({
+  "src/utils/extractStyles.ts"() {
     "use strict";
   }
 });
@@ -169,6 +181,84 @@ var init_background = __esm({
   }
 });
 
+// src/utils/css/border.ts
+function applyProperty(node, property, value) {
+  if (node && property in node) {
+    node[property] = value;
+  }
+}
+function applyBorderShorthand(node, width, style, color) {
+  var _a, _b;
+  const numericWidth = parseFloat(width);
+  applyProperty(node, "strokes", [figma.util.solidPaint(color)]);
+  applyProperty(node, "strokeWeight", numericWidth);
+  const styles = {
+    solid: {
+      miterLimit: 4,
+      dashPattern: []
+    },
+    dashed: {
+      dashPattern: [numericWidth * 2, numericWidth * 2]
+    },
+    dotted: {
+      dashPattern: [numericWidth, numericWidth]
+    },
+    default: {
+      dashPattern: []
+    }
+  };
+  node.strokeMiterLimit = ((_a = styles[style]) == null ? void 0 : _a.miterLimit) || 4;
+  applyProperty(
+    node,
+    "dashPattern",
+    ((_b = styles[style]) == null ? void 0 : _b.dashPattern) || styles.default.dashPattern
+  );
+}
+function applyStrokeColor(node, color) {
+  if (node.type === "FRAME" || node.type === "RECTANGLE") {
+    applyProperty(node, "strokes", [figma.mixPaint(color)]);
+    applyProperty(node, "fills", [figma.mixPaint(color)]);
+  }
+}
+function applyStrokeWidth(node, width) {
+  applyProperty(node, "strokeWeight", parseFloat(width));
+}
+function applyStrokeStyle(node, style) {
+  const styles = {
+    solid: { miterLimit: 4, dashPattern: [] },
+    dashed: { dashPattern: [node.strokeWeight * 2, node.strokeWeight * 2] },
+    dotted: { dashPattern: [node.strokeWeight, node.strokeWeight] },
+    default: { dashPattern: [] }
+  };
+  if (style in styles) {
+    node.strokeMiterLimit = styles[style].miterLimit || 4;
+    applyProperty(node, "dashPattern", styles[style].dashPattern);
+  }
+}
+var init_border = __esm({
+  "src/utils/css/border.ts"() {
+    "use strict";
+  }
+});
+
+// src/utils/applyStyles.ts
+function applyStylerToSelection(css, property, styler, propertyParser) {
+  let propValue = extractCSSProperty(css, property);
+  if (propValue !== "" && propValue !== null) {
+    const parsedPropValue = propertyParser ? propertyParser(propValue) : propValue;
+    const selectedNodes = figma.currentPage.selection;
+    selectedNodes.forEach(
+      (node) => styler(node, ...[].concat(parsedPropValue))
+    );
+  }
+}
+var init_applyStyles = __esm({
+  "src/utils/applyStyles.ts"() {
+    "use strict";
+    init_extractStyles();
+  }
+});
+
 // src/main.ts
 var main_exports = {};
 __export(main_exports, {
@@ -181,29 +271,32 @@ function main_default() {
     figma.ui.resize(width, height);
   });
   on("APPLY_CSS", (css) => {
-    const textColor = extractCSSProperty(css, "color");
-    const bgColor = extractCSSProperty(css, "background-color");
-    const selectedNodes = figma.currentPage.selection;
-    if (textColor) {
-      selectedNodes.forEach((node) => {
-        applyTextColor(node, textColor);
-      });
-    }
-    if (bgColor) {
-      selectedNodes.forEach((node) => {
-        applyBackgroundColor(node, bgColor);
-      });
-    }
+    Object.entries(stylerFunctions).forEach(
+      ([property, { applyFn, parser }]) => {
+        applyStylerToSelection(css, property, applyFn, parser);
+      }
+    );
   });
   showUI(options);
 }
+var stylerFunctions;
 var init_main = __esm({
   "src/main.ts"() {
     "use strict";
     init_lib();
-    init_extract();
+    init_extractStyles();
     init_color();
     init_background();
+    init_border();
+    init_applyStyles();
+    stylerFunctions = {
+      color: { applyFn: applyTextColor },
+      "background-color": { applyFn: applyBackgroundColor },
+      border: { applyFn: applyBorderShorthand, parser: parseBorderProperty },
+      "border-color": { applyFn: applyStrokeColor },
+      "border-width": { applyFn: applyStrokeWidth },
+      "border-style": { applyFn: applyStrokeStyle }
+    };
   }
 });
 

@@ -728,10 +728,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/a9c7efba-654f-42e2-b847-e723bfdc0cba/loading-indicator.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c79132ad-4ff2-4294-8202-bf7d6afbcbef/loading-indicator.module.js
   var loading_indicator_module_default;
   var init_loading_indicator_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/a9c7efba-654f-42e2-b847-e723bfdc0cba/loading-indicator.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c79132ad-4ff2-4294-8202-bf7d6afbcbef/loading-indicator.module.js"() {
       if (document.getElementById("c891e05b54") === null) {
         const element = document.createElement("style");
         element.id = "c891e05b54";
@@ -792,10 +792,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/fb0081dc-063f-459e-9ef0-dc271f965b23/button.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/ab4b600f-498e-4f19-a1c7-8db3d773f43d/button.module.js
   var button_module_default;
   var init_button_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/fb0081dc-063f-459e-9ef0-dc271f965b23/button.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/ab4b600f-498e-4f19-a1c7-8db3d773f43d/button.module.js"() {
       if (document.getElementById("4cebeccae6") === null) {
         const element = document.createElement("style");
         element.id = "4cebeccae6";
@@ -1195,9 +1195,9 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/1cc5ca69-c7ed-4389-b218-d7df56877e2d/base.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/023e267f-0488-414e-9b7c-1c0e4df4001f/base.js
   var init_base = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/1cc5ca69-c7ed-4389-b218-d7df56877e2d/base.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/023e267f-0488-414e-9b7c-1c0e4df4001f/base.js"() {
       if (document.getElementById("cfec39da5a") === null) {
         const element = document.createElement("style");
         element.id = "cfec39da5a";
@@ -1326,9 +1326,9 @@ svg {
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/470de2c7-6fe6-4bd9-8d88-0e891b4fe11b/output.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/5d9d76e0-4786-45d7-82e3-6942f0f89167/output.js
   var init_output = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/470de2c7-6fe6-4bd9-8d88-0e891b4fe11b/output.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/5d9d76e0-4786-45d7-82e3-6942f0f89167/output.js"() {
       if (document.getElementById("d735de220f") === null) {
         const element = document.createElement("style");
         element.id = "d735de220f";
@@ -2090,6 +2090,23 @@ textarea {
     }
   });
 
+  // src/utils/extractStyles.ts
+  function parseCss(css) {
+    const properties = css.split(";").map((prop) => prop.split(":").map((x4) => x4.trim())).filter((prop) => prop.length >= 2);
+    const cssObj = Object.fromEntries(properties);
+    const orderedCssObj = {};
+    if (cssObj["color"]) {
+      orderedCssObj["color"] = cssObj["color"];
+      delete cssObj["color"];
+    }
+    return __spreadValues(__spreadValues({}, orderedCssObj), cssObj);
+  }
+  var init_extractStyles = __esm({
+    "src/utils/extractStyles.ts"() {
+      "use strict";
+    }
+  });
+
   // src/ui.tsx
   var ui_exports = {};
   __export(ui_exports, {
@@ -2106,19 +2123,6 @@ textarea {
       maxHeight: 500
     });
     const [value, setValue] = p2("");
-    _(() => {
-      console.log(`Current value state: ${value}`);
-    }, [value]);
-    function parseCss(css) {
-      const properties = css.split(";").map((prop) => prop.split(":").map((x4) => x4.trim())).filter((prop) => prop.length >= 2);
-      const cssObj = Object.fromEntries(properties);
-      const orderedCssObj = {};
-      if (cssObj["color"]) {
-        orderedCssObj["color"] = cssObj["color"];
-        delete cssObj["color"];
-      }
-      return __spreadValues(__spreadValues({}, orderedCssObj), cssObj);
-    }
     function handleBlur(event) {
       const rawCSS = event.currentTarget.value;
       const parsedCSS = parseCss(rawCSS);
@@ -2156,6 +2160,7 @@ textarea {
       init_output();
       init_lib();
       init_hooks_module();
+      init_extractStyles();
       ui_default = render(Plugin);
     }
   });

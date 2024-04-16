@@ -1,9 +1,24 @@
 import { on, showUI } from "@create-figma-plugin/utilities";
-import { extractCSSProperty } from "./utils/extract";
+import { parseBorderProperty } from "./utils/extractStyles";
 
 import { applyTextColor } from "./utils/css/color";
 import { applyBackgroundColor } from "./utils/css/background";
+import {
+  applyBorderShorthand,
+  applyBorderColor,
+  applyBorderStyle,
+  applyBorderWidth,
+} from "./utils/css/border";
+import { applyStylerToSelection } from "./utils/applyStyles";
 
+const stylerFunctions: { [key: string]: any } = {
+  color: { applyFn: applyTextColor },
+  "background-color": { applyFn: applyBackgroundColor },
+  border: { applyFn: applyBorderShorthand, parser: parseBorderProperty },
+  "border-color": { applyFn: applyBorderColor },
+  "border-width": { applyFn: applyBorderWidth },
+  "border-style": { applyFn: applyBorderStyle },
+};
 export default function () {
   const options = { width: 300, height: 360 };
 
@@ -13,23 +28,11 @@ export default function () {
   });
 
   on("APPLY_CSS", (css: string) => {
-    const textColor = extractCSSProperty(css, "color");
-    const bgColor = extractCSSProperty(css, "background-color");
-
-    const selectedNodes = figma.currentPage.selection;
-
-    if (textColor) {
-      selectedNodes.forEach((node) => {
-        applyTextColor(node, textColor);
-      });
-    }
-
-    // Delay the application of background color to let Figma handle text color changes
-    if (bgColor) {
-      selectedNodes.forEach((node) => {
-        applyBackgroundColor(node, bgColor);
-      });
-    }
+    Object.entries(stylerFunctions).forEach(
+      ([property, { applyFn, parser }]) => {
+        applyStylerToSelection(css, property, applyFn, parser);
+      }
+    );
   });
 
   showUI(options);

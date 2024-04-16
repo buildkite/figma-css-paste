@@ -2,7 +2,8 @@ import { render, useWindowResize, Button } from "@create-figma-plugin/ui";
 import { JSX, h } from "preact";
 import "!./output.css";
 import { emit } from "@create-figma-plugin/utilities";
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
+import { parseCss } from "./utils/extractStyles";
 
 function Plugin() {
   function onWindowResize(windowSize: { width: number; height: number }) {
@@ -18,35 +19,11 @@ function Plugin() {
 
   const [value, setValue] = useState<string>("");
 
-  useEffect(() => {
-    console.log(`Current value state: ${value}`);
-  }, [value]);
-
-  function parseCss(css: string): { [key: string]: string } {
-    const properties = css
-      .split(";")
-      .map((prop) => prop.split(":").map((x) => x.trim()))
-      .filter((prop) => prop.length >= 2);
-
-    // Convert the properties into an object
-    const cssObj: { [key: string]: string } = Object.fromEntries(properties);
-
-    // Reorder the properties to ensure 'color' comes first
-    const orderedCssObj: { [key: string]: string } = {};
-    if (cssObj["color"]) {
-      orderedCssObj["color"] = cssObj["color"];
-      delete cssObj["color"];
-    }
-    return { ...orderedCssObj, ...cssObj };
-  }
-
+  // Reorder CSS so color it's first before submission because Figma things
   function handleBlur(event: JSX.TargetedEvent<HTMLTextAreaElement>) {
     const rawCSS = event.currentTarget.value;
-
-    // Reorder CSS properties
     const parsedCSS = parseCss(rawCSS);
 
-    // Convert CSS properties back to a valid CSS string format
     let newCSS = "";
     for (const property in parsedCSS) {
       newCSS += `${property}: ${parsedCSS[property]};\n`;
