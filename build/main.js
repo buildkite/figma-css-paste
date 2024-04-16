@@ -128,30 +128,6 @@ var init_lib = __esm({
   }
 });
 
-// src/utils/extractStyles.ts
-function extractCSSProperty(css, property) {
-  const regex = new RegExp(`${property}:\\s*(.*?)\\s*;`);
-  const match = css.match(regex);
-  return match ? match[1] : null;
-}
-function parseBorderProperty(border) {
-  const properties = border.split(" ");
-  if (properties.length === 3) {
-    const width = properties[0];
-    const style = properties[1];
-    const color = properties[2];
-    if (!isNaN(parseFloat(width)) && ["solid", "dashed", "dotted"].includes(style) && /^#([0-9a-f]{3}){1,2}$/i.test(color)) {
-      return [width, style, color];
-    }
-  }
-  return void 0;
-}
-var init_extractStyles = __esm({
-  "src/utils/extractStyles.ts"() {
-    "use strict";
-  }
-});
-
 // node_modules/chroma-js/src/utils/limit.js
 var require_limit = __commonJS({
   "node_modules/chroma-js/src/utils/limit.js"(exports, module) {
@@ -301,12 +277,12 @@ var require_Color = __commonJS({
 // node_modules/chroma-js/src/chroma.js
 var require_chroma = __commonJS({
   "node_modules/chroma-js/src/chroma.js"(exports, module) {
-    var chroma4 = (...args) => {
-      return new chroma4.Color(...args);
+    var chroma5 = (...args) => {
+      return new chroma5.Color(...args);
     };
-    chroma4.Color = require_Color();
-    chroma4.version = "@@version";
-    module.exports = chroma4;
+    chroma5.Color = require_Color();
+    chroma5.version = "@@version";
+    module.exports = chroma5;
   }
 });
 
@@ -358,7 +334,7 @@ var require_cmyk2rgb = __commonJS({
 // node_modules/chroma-js/src/io/cmyk/index.js
 var require_cmyk = __commonJS({
   "node_modules/chroma-js/src/io/cmyk/index.js"() {
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var { unpack, type } = require_utils();
@@ -366,7 +342,7 @@ var require_cmyk = __commonJS({
     Color.prototype.cmyk = function() {
       return rgb2cmyk(this._rgb);
     };
-    chroma4.cmyk = (...args) => new Color(...args, "cmyk");
+    chroma5.cmyk = (...args) => new Color(...args, "cmyk");
     input.format.cmyk = require_cmyk2rgb();
     input.autodetect.push({
       p: 2,
@@ -590,7 +566,7 @@ var require_css2rgb = __commonJS({
 // node_modules/chroma-js/src/io/css/index.js
 var require_css = __commonJS({
   "node_modules/chroma-js/src/io/css/index.js"() {
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var { type } = require_utils();
@@ -599,7 +575,7 @@ var require_css = __commonJS({
     Color.prototype.css = function(mode) {
       return rgb2css(this._rgb, mode);
     };
-    chroma4.css = (...args) => new Color(...args, "css");
+    chroma5.css = (...args) => new Color(...args, "css");
     input.format.css = css2rgb;
     input.autodetect.push({
       p: 5,
@@ -616,7 +592,7 @@ var require_css = __commonJS({
 var require_gl = __commonJS({
   "node_modules/chroma-js/src/io/gl/index.js"() {
     var Color = require_Color();
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var input = require_input();
     var { unpack } = require_utils();
     input.format.gl = (...args) => {
@@ -626,7 +602,7 @@ var require_gl = __commonJS({
       rgb[2] *= 255;
       return rgb;
     };
-    chroma4.gl = (...args) => new Color(...args, "gl");
+    chroma5.gl = (...args) => new Color(...args, "gl");
     Color.prototype.gl = function() {
       const rgb = this._rgb;
       return [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, rgb[3]];
@@ -723,14 +699,14 @@ var require_hcg2rgb = __commonJS({
 var require_hcg = __commonJS({
   "node_modules/chroma-js/src/io/hcg/index.js"() {
     var { unpack, type } = require_utils();
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var rgb2hcg = require_rgb2hcg();
     Color.prototype.hcg = function() {
       return rgb2hcg(this._rgb);
     };
-    chroma4.hcg = (...args) => new Color(...args, "hcg");
+    chroma5.hcg = (...args) => new Color(...args, "hcg");
     input.format.hcg = require_hcg2rgb();
     input.autodetect.push({
       p: 1,
@@ -822,7 +798,7 @@ var require_hex2rgb = __commonJS({
 // node_modules/chroma-js/src/io/hex/index.js
 var require_hex = __commonJS({
   "node_modules/chroma-js/src/io/hex/index.js"() {
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var { type } = require_utils();
     var input = require_input();
@@ -830,7 +806,7 @@ var require_hex = __commonJS({
     Color.prototype.hex = function(mode) {
       return rgb2hex(this._rgb, mode);
     };
-    chroma4.hex = (...args) => new Color(...args, "hex");
+    chroma5.hex = (...args) => new Color(...args, "hex");
     input.format.hex = require_hex2rgb();
     input.autodetect.push({
       p: 4,
@@ -920,14 +896,14 @@ var require_hsi2rgb = __commonJS({
 var require_hsi = __commonJS({
   "node_modules/chroma-js/src/io/hsi/index.js"() {
     var { unpack, type } = require_utils();
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var rgb2hsi = require_rgb2hsi();
     Color.prototype.hsi = function() {
       return rgb2hsi(this._rgb);
     };
-    chroma4.hsi = (...args) => new Color(...args, "hsi");
+    chroma5.hsi = (...args) => new Color(...args, "hsi");
     input.format.hsi = require_hsi2rgb();
     input.autodetect.push({
       p: 2,
@@ -945,14 +921,14 @@ var require_hsi = __commonJS({
 var require_hsl = __commonJS({
   "node_modules/chroma-js/src/io/hsl/index.js"() {
     var { unpack, type } = require_utils();
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var rgb2hsl = require_rgb2hsl();
     Color.prototype.hsl = function() {
       return rgb2hsl(this._rgb);
     };
-    chroma4.hsl = (...args) => new Color(...args, "hsl");
+    chroma5.hsl = (...args) => new Color(...args, "hsl");
     input.format.hsl = require_hsl2rgb();
     input.autodetect.push({
       p: 2,
@@ -1056,14 +1032,14 @@ var require_hsv2rgb = __commonJS({
 var require_hsv = __commonJS({
   "node_modules/chroma-js/src/io/hsv/index.js"() {
     var { unpack, type } = require_utils();
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var rgb2hsv = require_rgb2hsv();
     Color.prototype.hsv = function() {
       return rgb2hsv(this._rgb);
     };
-    chroma4.hsv = (...args) => new Color(...args, "hsv");
+    chroma5.hsv = (...args) => new Color(...args, "hsv");
     input.format.hsv = require_hsv2rgb();
     input.autodetect.push({
       p: 2,
@@ -1169,14 +1145,14 @@ var require_lab2rgb = __commonJS({
 var require_lab = __commonJS({
   "node_modules/chroma-js/src/io/lab/index.js"() {
     var { unpack, type } = require_utils();
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var rgb2lab = require_rgb2lab();
     Color.prototype.lab = function() {
       return rgb2lab(this._rgb);
     };
-    chroma4.lab = (...args) => new Color(...args, "lab");
+    chroma5.lab = (...args) => new Color(...args, "lab");
     input.format.lab = require_lab2rgb();
     input.autodetect.push({
       p: 2,
@@ -1272,7 +1248,7 @@ var require_hcl2rgb = __commonJS({
 var require_lch = __commonJS({
   "node_modules/chroma-js/src/io/lch/index.js"() {
     var { unpack, type } = require_utils();
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var rgb2lch = require_rgb2lch();
@@ -1282,8 +1258,8 @@ var require_lch = __commonJS({
     Color.prototype.hcl = function() {
       return rgb2lch(this._rgb).reverse();
     };
-    chroma4.lch = (...args) => new Color(...args, "lch");
-    chroma4.hcl = (...args) => new Color(...args, "hcl");
+    chroma5.lch = (...args) => new Color(...args, "lch");
+    chroma5.hcl = (...args) => new Color(...args, "hcl");
     input.format.lch = require_lch2rgb();
     input.format.hcl = require_hcl2rgb();
     ["lch", "hcl"].forEach((m) => input.autodetect.push({
@@ -1528,7 +1504,7 @@ var require_num2rgb = __commonJS({
 // node_modules/chroma-js/src/io/num/index.js
 var require_num = __commonJS({
   "node_modules/chroma-js/src/io/num/index.js"() {
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var { type } = require_utils();
@@ -1536,7 +1512,7 @@ var require_num = __commonJS({
     Color.prototype.num = function() {
       return rgb2num(this._rgb);
     };
-    chroma4.num = (...args) => new Color(...args, "num");
+    chroma5.num = (...args) => new Color(...args, "num");
     input.format.num = require_num2rgb();
     input.autodetect.push({
       p: 5,
@@ -1552,7 +1528,7 @@ var require_num = __commonJS({
 // node_modules/chroma-js/src/io/rgb/index.js
 var require_rgb = __commonJS({
   "node_modules/chroma-js/src/io/rgb/index.js"() {
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var { unpack, type } = require_utils();
@@ -1567,7 +1543,7 @@ var require_rgb = __commonJS({
         return i < 3 ? rnd === false ? v : round(v) : v;
       });
     };
-    chroma4.rgb = (...args) => new Color(...args, "rgb");
+    chroma5.rgb = (...args) => new Color(...args, "rgb");
     input.format.rgb = (...args) => {
       const rgba = unpack(args, "rgba");
       if (rgba[3] === void 0)
@@ -1639,14 +1615,14 @@ var require_rgb2temperature = __commonJS({
 // node_modules/chroma-js/src/io/temp/index.js
 var require_temp = __commonJS({
   "node_modules/chroma-js/src/io/temp/index.js"() {
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var rgb2temperature = require_rgb2temperature();
     Color.prototype.temp = Color.prototype.kelvin = Color.prototype.temperature = function() {
       return rgb2temperature(this._rgb);
     };
-    chroma4.temp = chroma4.kelvin = chroma4.temperature = (...args) => new Color(...args, "temp");
+    chroma5.temp = chroma5.kelvin = chroma5.temperature = (...args) => new Color(...args, "temp");
     input.format.temp = input.format.kelvin = input.format.temperature = require_temperature2rgb();
   }
 });
@@ -1712,14 +1688,14 @@ var require_oklab2rgb = __commonJS({
 var require_oklab = __commonJS({
   "node_modules/chroma-js/src/io/oklab/index.js"() {
     var { unpack, type } = require_utils();
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var rgb2oklab = require_rgb2oklab();
     Color.prototype.oklab = function() {
       return rgb2oklab(this._rgb);
     };
-    chroma4.oklab = (...args) => new Color(...args, "oklab");
+    chroma5.oklab = (...args) => new Color(...args, "oklab");
     input.format.oklab = require_oklab2rgb();
     input.autodetect.push({
       p: 3,
@@ -1769,14 +1745,14 @@ var require_oklch2rgb = __commonJS({
 var require_oklch = __commonJS({
   "node_modules/chroma-js/src/io/oklch/index.js"() {
     var { unpack, type } = require_utils();
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var Color = require_Color();
     var input = require_input();
     var rgb2oklch = require_rgb2oklch();
     Color.prototype.oklch = function() {
       return rgb2oklch(this._rgb);
     };
-    chroma4.oklch = (...args) => new Color(...args, "oklch");
+    chroma5.oklch = (...args) => new Color(...args, "oklch");
     input.format.oklch = require_oklch2rgb();
     input.autodetect.push({
       p: 3,
@@ -2352,12 +2328,12 @@ var require_average = __commonJS({
 // node_modules/chroma-js/src/generator/scale.js
 var require_scale = __commonJS({
   "node_modules/chroma-js/src/generator/scale.js"(exports, module) {
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var { type } = require_utils();
     var { pow } = Math;
     module.exports = function(colors) {
       let _mode = "rgb";
-      let _nacol = chroma4("#ccc");
+      let _nacol = chroma5("#ccc");
       let _spread = 0;
       let _domain = [0, 1];
       let _pos = [];
@@ -2373,8 +2349,8 @@ var require_scale = __commonJS({
       let _gamma = 1;
       const setColors = function(colors2) {
         colors2 = colors2 || ["#fff", "#000"];
-        if (colors2 && type(colors2) === "string" && chroma4.brewer && chroma4.brewer[colors2.toLowerCase()]) {
-          colors2 = chroma4.brewer[colors2.toLowerCase()];
+        if (colors2 && type(colors2) === "string" && chroma5.brewer && chroma5.brewer[colors2.toLowerCase()]) {
+          colors2 = chroma5.brewer[colors2.toLowerCase()];
         }
         if (type(colors2) === "array") {
           if (colors2.length === 1) {
@@ -2382,7 +2358,7 @@ var require_scale = __commonJS({
           }
           colors2 = colors2.slice(0);
           for (let c = 0; c < colors2.length; c++) {
-            colors2[c] = chroma4(colors2[c]);
+            colors2[c] = chroma5(colors2[c]);
           }
           _pos.length = 0;
           for (let c = 0; c < colors2.length; c++) {
@@ -2451,7 +2427,7 @@ var require_scale = __commonJS({
               }
               if (t > p && t < _pos[i + 1]) {
                 t = (t - p) / (_pos[i + 1] - p);
-                col = chroma4.interpolate(_colors[i], _colors[i + 1], t, _mode);
+                col = chroma5.interpolate(_colors[i], _colors[i + 1], t, _mode);
                 break;
               }
             }
@@ -2467,7 +2443,7 @@ var require_scale = __commonJS({
       var resetCache = () => _colorCache = {};
       setColors(colors);
       const f = function(v) {
-        const c = chroma4(getColor(v));
+        const c = chroma5(getColor(v));
         if (_out && c[_out]) {
           return c[_out]();
         } else {
@@ -2480,11 +2456,11 @@ var require_scale = __commonJS({
             _classes = classes;
             _domain = [classes[0], classes[classes.length - 1]];
           } else {
-            const d = chroma4.analyze(_domain);
+            const d = chroma5.analyze(_domain);
             if (classes === 0) {
               _classes = [d.min, d.max];
             } else {
-              _classes = chroma4.limits(d, "e", classes);
+              _classes = chroma5.limits(d, "e", classes);
             }
           }
           return f;
@@ -2626,7 +2602,7 @@ var require_scale = __commonJS({
           }
           result = samples.map((v) => f(v));
         }
-        if (chroma4[out]) {
+        if (chroma5[out]) {
           result = result.map((c) => c[out]());
         }
         return result;
@@ -2649,7 +2625,7 @@ var require_scale = __commonJS({
       };
       f.nodata = function(d) {
         if (d != null) {
-          _nacol = chroma4(d);
+          _nacol = chroma5(d);
           return f;
         } else {
           return _nacol;
@@ -2735,7 +2711,7 @@ var require_bezier = __commonJS({
 var require_blend = __commonJS({
   "node_modules/chroma-js/src/generator/blend.js"(exports, module) {
     require_rgb();
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     var blend = (bottom, top, mode) => {
       if (!blend[mode]) {
         throw new Error("unknown blend mode " + mode);
@@ -2743,9 +2719,9 @@ var require_blend = __commonJS({
       return blend[mode](bottom, top);
     };
     var blend_f = (f) => (bottom, top) => {
-      const c0 = chroma4(top).rgb();
-      const c1 = chroma4(bottom).rgb();
-      return chroma4.rgb(f(c0, c1));
+      const c0 = chroma5(top).rgb();
+      const c1 = chroma5(bottom).rgb();
+      return chroma5.rgb(f(c0, c1));
     };
     var each = (f) => (c0, c1) => {
       const out = [];
@@ -2784,7 +2760,7 @@ var require_cubehelix = __commonJS({
   "node_modules/chroma-js/src/generator/cubehelix.js"(exports, module) {
     var { type, clip_rgb, TWOPI } = require_utils();
     var { pow, sin, cos } = Math;
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     module.exports = function(start = 300, rotations = -1.5, hue = 1, gamma = 1, lightness = [0, 1]) {
       let dh = 0, dl;
       if (type(lightness) === "array") {
@@ -2803,7 +2779,7 @@ var require_cubehelix = __commonJS({
         const r = l + amp * (-0.14861 * cos_a + 1.78277 * sin_a);
         const g = l + amp * (-0.29227 * cos_a - 0.90649 * sin_a);
         const b = l + amp * (1.97294 * cos_a);
-        return chroma4(clip_rgb([r * 255, g * 255, b * 255, 1]));
+        return chroma5(clip_rgb([r * 255, g * 255, b * 255, 1]));
       };
       f.start = function(s) {
         if (s == null) {
@@ -2854,7 +2830,7 @@ var require_cubehelix = __commonJS({
         }
         return f;
       };
-      f.scale = () => chroma4.scale(f);
+      f.scale = () => chroma5.scale(f);
       f.hue(hue);
       return f;
     };
@@ -3143,12 +3119,12 @@ var require_valid = __commonJS({
 // node_modules/chroma-js/src/utils/scales.js
 var require_scales = __commonJS({
   "node_modules/chroma-js/src/utils/scales.js"(exports, module) {
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     require_hsl();
     var scale = require_scale();
     module.exports = {
       cool() {
-        return scale([chroma4.hsl(180, 1, 0.9), chroma4.hsl(250, 0.7, 0.4)]);
+        return scale([chroma5.hsl(180, 1, 0.9), chroma5.hsl(250, 0.7, 0.4)]);
       },
       hot() {
         return scale(["#000", "#f00", "#ff0", "#fff"], [0, 0.25, 0.75, 1]).mode("rgb");
@@ -3211,7 +3187,7 @@ var require_colorbrewer = __commonJS({
 // node_modules/chroma-js/index.js
 var require_chroma_js = __commonJS({
   "node_modules/chroma-js/index.js"(exports, module) {
-    var chroma4 = require_chroma();
+    var chroma5 = require_chroma();
     require_cmyk();
     require_css();
     require_gl();
@@ -3248,23 +3224,23 @@ var require_chroma_js = __commonJS({
     require_hsv2();
     require_oklab2();
     require_oklch2();
-    chroma4.average = require_average();
-    chroma4.bezier = require_bezier();
-    chroma4.blend = require_blend();
-    chroma4.cubehelix = require_cubehelix();
-    chroma4.mix = chroma4.interpolate = require_mix();
-    chroma4.random = require_random();
-    chroma4.scale = require_scale();
-    chroma4.analyze = require_analyze().analyze;
-    chroma4.contrast = require_contrast();
-    chroma4.deltaE = require_delta_e();
-    chroma4.distance = require_distance();
-    chroma4.limits = require_analyze().limits;
-    chroma4.valid = require_valid();
-    chroma4.scales = require_scales();
-    chroma4.colors = require_w3cx11();
-    chroma4.brewer = require_colorbrewer();
-    module.exports = chroma4;
+    chroma5.average = require_average();
+    chroma5.bezier = require_bezier();
+    chroma5.blend = require_blend();
+    chroma5.cubehelix = require_cubehelix();
+    chroma5.mix = chroma5.interpolate = require_mix();
+    chroma5.random = require_random();
+    chroma5.scale = require_scale();
+    chroma5.analyze = require_analyze().analyze;
+    chroma5.contrast = require_contrast();
+    chroma5.deltaE = require_delta_e();
+    chroma5.distance = require_distance();
+    chroma5.limits = require_analyze().limits;
+    chroma5.valid = require_valid();
+    chroma5.scales = require_scales();
+    chroma5.colors = require_w3cx11();
+    chroma5.brewer = require_colorbrewer();
+    module.exports = chroma5;
   }
 });
 
@@ -3274,7 +3250,7 @@ function applyTextColor(node, color) {
     const newFill = figma.util.solidPaint((0, import_chroma_js.default)(color).hex());
     node.fills = [newFill];
   } else if ("children" in node) {
-    node.findAll((n) => n.type === "TEXT").forEach((textNode) => {
+    node.findAll((node2) => node2.type === "TEXT").forEach((textNode) => {
       const newFill = figma.util.solidPaint((0, import_chroma_js.default)(color).hex());
       textNode.fills = [newFill];
     });
@@ -3364,11 +3340,35 @@ function applyStrokeStyle(node, style) {
     applyProperty(node, "dashPattern", styles[style].dashPattern);
   }
 }
+function parseBorderProperty(border) {
+  const properties = border.split(" ");
+  if (properties.length === 3) {
+    const width = properties[0];
+    const style = properties[1];
+    const color = properties[2];
+    if (!isNaN(parseFloat(width)) && ["solid", "dashed", "dotted"].includes(style) && /^#([0-9a-f]{3}){1,2}$/i.test(color)) {
+      return [width, style, color];
+    }
+  }
+  return void 0;
+}
 var import_chroma_js3;
 var init_border = __esm({
   "src/utils/css/border.ts"() {
     "use strict";
     import_chroma_js3 = __toESM(require_chroma_js());
+  }
+});
+
+// src/utils/extractStyles.ts
+function extractCSSProperty(css, property) {
+  const regex = new RegExp(`${property}:\\s*(.*?)\\s*;`);
+  const match = css.match(regex);
+  return match ? match[1] : null;
+}
+var init_extractStyles = __esm({
+  "src/utils/extractStyles.ts"() {
+    "use strict";
   }
 });
 
@@ -3387,6 +3387,43 @@ var init_applyStyles = __esm({
   "src/utils/applyStyles.ts"() {
     "use strict";
     init_extractStyles();
+  }
+});
+
+// src/utils/css/shadow.ts
+function parseBoxShadow(boxShadow) {
+  const shadowRegex = /([-+]?[\d\.]+)px?\s+([-+]?[\d\.]+)px?\s+([-+]?[\d\.]+)px?\s*(?:([-+]?[\d\.]+)px?)?\s*((rgb\([\d\s,]+\))|(rgba\([\d\s,\.]+\))|(#([0-9a-f]{3}){1,2})|([a-z]+))/i;
+  const match = boxShadow.match(shadowRegex);
+  if (!match) {
+    return null;
+  }
+  const [, offsetX, offsetY, blur, spread, color] = match;
+  const newColor = (0, import_chroma_js4.default)(color).gl();
+  const effect = {
+    type: "DROP_SHADOW",
+    color: { r: newColor[0], g: newColor[1], b: newColor[2], a: newColor[3] },
+    blendMode: "NORMAL",
+    offset: {
+      x: Number(offsetX),
+      y: Number(offsetY)
+    },
+    radius: Number(blur),
+    spread: spread ? Number(spread) : 0,
+    // If spread is optionally provided
+    visible: true
+  };
+  return effect;
+}
+function applyBoxShadow(node, effect) {
+  if ("effects" in node && effect) {
+    node.effects = [effect];
+  }
+}
+var import_chroma_js4;
+var init_shadow = __esm({
+  "src/utils/css/shadow.ts"() {
+    "use strict";
+    import_chroma_js4 = __toESM(require_chroma_js());
   }
 });
 
@@ -3415,18 +3452,19 @@ var init_main = __esm({
   "src/main.ts"() {
     "use strict";
     init_lib();
-    init_extractStyles();
     init_color();
     init_background();
     init_border();
     init_applyStyles();
+    init_shadow();
     stylerFunctions = {
       color: { applyFn: applyTextColor },
       "background-color": { applyFn: applyBackgroundColor },
       border: { applyFn: applyBorderShorthand, parser: parseBorderProperty },
       "border-color": { applyFn: applyStrokeColor },
       "border-width": { applyFn: applyStrokeWidth },
-      "border-style": { applyFn: applyStrokeStyle }
+      "border-style": { applyFn: applyStrokeStyle },
+      "box-shadow": { applyFn: applyBoxShadow, parser: parseBoxShadow }
     };
   }
 });

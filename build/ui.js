@@ -728,10 +728,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/a0db7452-1fbd-461a-b06a-c6e636185177/loading-indicator.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c87a0ef4-64e7-49ba-9d3b-1643d8637bbf/loading-indicator.module.js
   var loading_indicator_module_default;
   var init_loading_indicator_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/a0db7452-1fbd-461a-b06a-c6e636185177/loading-indicator.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c87a0ef4-64e7-49ba-9d3b-1643d8637bbf/loading-indicator.module.js"() {
       if (document.getElementById("c891e05b54") === null) {
         const element = document.createElement("style");
         element.id = "c891e05b54";
@@ -792,10 +792,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/a869996d-acb7-4b62-8f5d-d45e2f4256bd/button.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c2bec385-4693-4474-bf15-4a4a8a434f75/button.module.js
   var button_module_default;
   var init_button_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/a869996d-acb7-4b62-8f5d-d45e2f4256bd/button.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c2bec385-4693-4474-bf15-4a4a8a434f75/button.module.js"() {
       if (document.getElementById("4cebeccae6") === null) {
         const element = document.createElement("style");
         element.id = "4cebeccae6";
@@ -1195,9 +1195,9 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/99eb99c4-8cde-4472-baf5-2e73b6039d2b/base.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/fb5a9c77-5212-45f8-8f42-3fc3e3019ef5/base.js
   var init_base = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/99eb99c4-8cde-4472-baf5-2e73b6039d2b/base.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/fb5a9c77-5212-45f8-8f42-3fc3e3019ef5/base.js"() {
       if (document.getElementById("cfec39da5a") === null) {
         const element = document.createElement("style");
         element.id = "cfec39da5a";
@@ -1326,9 +1326,9 @@ svg {
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/6938dd55-9d30-48eb-a079-5a8db1edee5f/output.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/9617d3b9-121c-4914-80f9-2fa6eee7b632/output.js
   var init_output = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/6938dd55-9d30-48eb-a079-5a8db1edee5f/output.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/9617d3b9-121c-4914-80f9-2fa6eee7b632/output.js"() {
       if (document.getElementById("d735de220f") === null) {
         const element = document.createElement("style");
         element.id = "d735de220f";
@@ -1888,6 +1888,18 @@ video {
   --tw-contain-style:  ;
 }
 
+.visible {
+  visibility: visible;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
 .flex {
   display: flex;
 }
@@ -1909,12 +1921,29 @@ video {
   height: 100%;
 }
 
+.w-full {
+  width: 100%;
+}
+
+.w-max {
+  width: -moz-max-content;
+  width: max-content;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
 
 .grow {
   flex-grow: 1;
+}
+
+.cursor-text {
+  cursor: text;
+}
+
+.resize-none {
+  resize: none;
 }
 
 .resize {
@@ -1927,6 +1956,16 @@ video {
 
 .gap-4 {
   gap: 1rem;
+}
+
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.overflow-scroll {
+  overflow: scroll;
 }
 
 .rounded-md {
@@ -1950,12 +1989,45 @@ video {
   background-color: transparent;
 }
 
+.bg-[#222436] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 36 54 / var(--tw-bg-opacity));
+}
+
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
+.bg-indigo-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(49 46 129 / var(--tw-bg-opacity));
+}
+
+.bg-slate-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
+}
+
+.bg-indigo-950 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 27 75 / var(--tw-bg-opacity));
+}
+
 .p-2 {
   padding: 0.5rem;
 }
 
 .p-4 {
   padding: 1rem;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .text-3xl {
@@ -1967,8 +2039,32 @@ video {
   font-weight: 700;
 }
 
+.text-transparent {
+  color: transparent;
+}
+
+.text-lime-300 {
+  --tw-text-opacity: 1;
+  color: rgb(190 242 100 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
+}
+
+.opacity-30 {
+  opacity: 0.3;
+}
+
+.shadow {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.outline-none {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .ring-1 {
@@ -2000,6 +2096,11 @@ video {
 
 .ring-transparent {
   --tw-ring-color: transparent;
+}
+
+.blur {
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .filter {
@@ -2072,6 +2173,11 @@ textarea {
 
 .focus\\:bg-transparent:focus {
   background-color: transparent;
+}
+
+.focus\\:bg-[#222436]:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 36 54 / var(--tw-bg-opacity));
 }
 
 .focus\\:ring-2:focus {
@@ -2147,7 +2253,7 @@ textarea {
         onInput: handleInput,
         onBlur: handleBlur,
         value,
-        className: "p-2 h-full rounded-sm focus:ring-2 ring-figma-gray bg-transparent focus:ring-figma-blue hover:ring-figma-gray-light ring-1 focus:bg-transparent"
+        className: "p-2 h-full bg-indigo-950 text-lime-300 rounded-sm focus:ring-2 ring-figma-gray focus:ring-figma-blue hover:ring-figma-gray-light ring-1 focus:bg-[#222436] font-mono"
       }
     ), /* @__PURE__ */ y(Button, { fullWidth: true, onClick: handleClick }, "Apply Styles"));
   }

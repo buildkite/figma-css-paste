@@ -4,6 +4,7 @@ import "!./output.css";
 import { emit } from "@create-figma-plugin/utilities";
 import { useState } from "preact/hooks";
 import { parseCss } from "./utils/extractStyles";
+import CodeEditor from "@uiw/react-textarea-code-editor";
 
 function Plugin() {
   function onWindowResize(windowSize: { width: number; height: number }) {
@@ -48,7 +49,7 @@ function Plugin() {
         onInput={handleInput}
         onBlur={handleBlur}
         value={value}
-        className="p-2 h-full rounded-sm focus:ring-2 ring-figma-gray bg-transparent focus:ring-figma-blue hover:ring-figma-gray-light ring-1 focus:bg-transparent"
+        className="p-2 h-full bg-indigo-950 text-lime-300 rounded-sm focus:ring-2 ring-figma-gray focus:ring-figma-blue hover:ring-figma-gray-light ring-1 focus:bg-[#222436] font-mono"
       />
       <Button fullWidth onClick={handleClick}>
         Apply Styles

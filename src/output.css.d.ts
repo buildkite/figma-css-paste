@@ -1,7 +1,15 @@
 declare const styles: {
+  readonly "absolute": string;
+  readonly "bg-[#222436]": string;
   readonly "bg-figma-gray-light": string;
+  readonly "bg-indigo-900": string;
+  readonly "bg-indigo-950": string;
+  readonly "bg-red-500": string;
+  readonly "bg-slate-900": string;
   readonly "bg-transparent": string;
+  readonly "blur": string;
   readonly "border": string;
+  readonly "cursor-text": string;
   readonly "filter": string;
   readonly "flex": string;
   readonly "flex-1": string;
@@ -11,10 +19,12 @@ declare const styles: {
   readonly "focus-within:ring-[#3E8AE2]": string;
   readonly "focus-within:ring-blue-500": string;
   readonly "focus-within:ring-figma-blue": string;
+  readonly "focus:bg-[#222436]": string;
   readonly "focus:bg-transparent": string;
   readonly "focus:ring-2": string;
   readonly "focus:ring-figma-blue": string;
   readonly "font-bold": string;
+  readonly "font-mono": string;
   readonly "gap-4": string;
   readonly "grow": string;
   readonly "h-96": string;
@@ -25,9 +35,14 @@ declare const styles: {
   readonly "hover:ring-1": string;
   readonly "hover:ring-figma-gray": string;
   readonly "hover:ring-figma-gray-light": string;
+  readonly "opacity-30": string;
+  readonly "outline-none": string;
+  readonly "overflow-scroll": string;
   readonly "p-2": string;
   readonly "p-4": string;
+  readonly "relative": string;
   readonly "resize": string;
+  readonly "resize-none": string;
   readonly "ring-1": string;
   readonly "ring-2": string;
   readonly "ring-figma-blue": string;
@@ -36,8 +51,16 @@ declare const styles: {
   readonly "ring-transparent": string;
   readonly "rounded-md": string;
   readonly "rounded-sm": string;
+  readonly "shadow": string;
+  readonly "space-x-4": string;
   readonly "text-3xl": string;
+  readonly "text-lime-300": string;
+  readonly "text-right": string;
+  readonly "text-transparent": string;
   readonly "underline": string;
+  readonly "visible": string;
+  readonly "w-full": string;
+  readonly "w-max": string;
 };
 export = styles;
 

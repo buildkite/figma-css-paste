@@ -1,5 +1,4 @@
 import { on, showUI } from "@create-figma-plugin/utilities";
-import { parseBorderProperty } from "./utils/extractStyles";
 
 import { applyTextColor } from "./utils/css/color";
 import { applyBackgroundColor } from "./utils/css/background";
@@ -8,8 +7,10 @@ import {
   applyBorderColor,
   applyBorderStyle,
   applyBorderWidth,
+  parseBorderProperty,
 } from "./utils/css/border";
 import { applyStylerToSelection } from "./utils/applyStyles";
+import { applyBoxShadow, parseBoxShadow } from "./utils/css/shadow";
 
 const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
@@ -18,6 +19,7 @@ const stylerFunctions: { [key: string]: any } = {
   "border-color": { applyFn: applyBorderColor },
   "border-width": { applyFn: applyBorderWidth },
   "border-style": { applyFn: applyBorderStyle },
+  "box-shadow": { applyFn: applyBoxShadow, parser: parseBoxShadow },
 };
 export default function () {
   const options = { width: 300, height: 360 };

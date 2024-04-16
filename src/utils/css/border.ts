@@ -86,3 +86,27 @@ export {
   applyStrokeStyle as applyBorderStyle,
   applyBorderShorthand,
 };
+
+export function parseBorderProperty(
+  border: string
+): [string, string, string] | undefined {
+  const properties = border.split(" ");
+
+  // Make sure three values are provided
+  if (properties.length === 3) {
+    const width = properties[0];
+    const style = properties[1];
+    const color = properties[2];
+
+    // Validate the properties - this is a basic validation and can be extended
+    if (
+      !isNaN(parseFloat(width)) &&
+      ["solid", "dashed", "dotted"].includes(style) &&
+      /^#([0-9a-f]{3}){1,2}$/i.test(color)
+    ) {
+      return [width, style, color];
+    }
+  }
+
+  return undefined;
+}

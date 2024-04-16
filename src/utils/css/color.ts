@@ -6,7 +6,7 @@ export function applyTextColor(node: any, color: string) {
     node.fills = [newFill];
   } else if ("children" in node) {
     node
-      .findAll((n: any) => n.type === "TEXT")
+      .findAll((node: any) => node.type === "TEXT")
       .forEach((textNode: any) => {
         const newFill = figma.util.solidPaint(chroma(color).hex());
         textNode.fills = [newFill];
