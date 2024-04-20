@@ -728,10 +728,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/fd3fb13d-3ce0-46c8-a82c-6d2edc18112f/loading-indicator.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/1d1708df-c15a-4b3c-afdb-c6588ea8ded2/loading-indicator.module.js
   var loading_indicator_module_default;
   var init_loading_indicator_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/fd3fb13d-3ce0-46c8-a82c-6d2edc18112f/loading-indicator.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/1d1708df-c15a-4b3c-afdb-c6588ea8ded2/loading-indicator.module.js"() {
       if (document.getElementById("c891e05b54") === null) {
         const element = document.createElement("style");
         element.id = "c891e05b54";
@@ -792,10 +792,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/4c7535d6-38ea-4b79-8ee9-d4b4992fcf50/button.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/1dac9d97-0036-4a0a-870c-6c04e32682b1/button.module.js
   var button_module_default;
   var init_button_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/4c7535d6-38ea-4b79-8ee9-d4b4992fcf50/button.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/1dac9d97-0036-4a0a-870c-6c04e32682b1/button.module.js"() {
       if (document.getElementById("4cebeccae6") === null) {
         const element = document.createElement("style");
         element.id = "4cebeccae6";
@@ -1195,9 +1195,9 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/9c65ceb5-67e6-4dee-b7ed-bd0d977dc8eb/base.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/6ffc6cb3-1bdb-4261-ba50-f8238178c430/base.js
   var init_base = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/9c65ceb5-67e6-4dee-b7ed-bd0d977dc8eb/base.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/6ffc6cb3-1bdb-4261-ba50-f8238178c430/base.js"() {
       if (document.getElementById("cfec39da5a") === null) {
         const element = document.createElement("style");
         element.id = "cfec39da5a";
@@ -1326,9 +1326,9 @@ svg {
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/4a216195-ef4c-4a38-bb4b-29810045df3b/output.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/d8497331-b909-448b-8069-a8f8a3e670bd/output.js
   var init_output = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/4a216195-ef4c-4a38-bb4b-29810045df3b/output.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/d8497331-b909-448b-8069-a8f8a3e670bd/output.js"() {
       if (document.getElementById("d735de220f") === null) {
         const element = document.createElement("style");
         element.id = "d735de220f";
@@ -1966,6 +1966,14 @@ video {
   flex: 1 1 0%;
 }
 
+.flex-shrink {
+  flex-shrink: 1;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
 .grow {
   flex-grow: 1;
 }
@@ -1984,6 +1992,10 @@ video {
 
 .flex-col {
   flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .gap-4 {
@@ -2044,6 +2056,11 @@ video {
 
 .bg-transparent {
   background-color: transparent;
+}
+
+.bg-[#2C2C2C] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(44 44 44 / var(--tw-bg-opacity));
 }
 
 .p-2 {
@@ -2113,8 +2130,22 @@ video {
   color: rgb(132 204 22 / var(--tw-text-opacity));
 }
 
+.text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 .text-opacity-50 {
   --tw-text-opacity: 0.5;
+}
+
+.text-opacity-30 {
+  --tw-text-opacity: 0.3;
 }
 
 .underline {
@@ -2254,12 +2285,40 @@ textarea {
   color: rgb(49 46 129 / var(--tw-text-opacity));
 }
 
+.placeholder\\:text-gray-500::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+.placeholder\\:text-gray-500::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+.placeholder\\:text-white::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.placeholder\\:text-white::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 .placeholder\\:text-opacity-50::-moz-placeholder {
   --tw-text-opacity: 0.5;
 }
 
 .placeholder\\:text-opacity-50::placeholder {
   --tw-text-opacity: 0.5;
+}
+
+.placeholder\\:text-opacity-30::-moz-placeholder {
+  --tw-text-opacity: 0.3;
+}
+
+.placeholder\\:text-opacity-30::placeholder {
+  --tw-text-opacity: 0.3;
 }
 
 .focus-within\\:bg-transparent:focus-within {
@@ -2366,6 +2425,7 @@ textarea {
       maxHeight: 500
     });
     const [value, setValue] = p2("");
+    const [message, setMessage] = p2("Apply Styles");
     function handleBlur(event) {
       const rawCSS = event.currentTarget.value;
       const parsedCSS = parseCss(rawCSS);
@@ -2380,17 +2440,22 @@ textarea {
       const newValue = event.currentTarget.value;
       setValue(newValue);
     }
-    const handleClick = () => {
-      emit("APPLY_CSS", value);
-    };
-    return /* @__PURE__ */ y("div", { className: "flex flex-col h-full relative" }, /* @__PURE__ */ y("div", { className: "absolute bottom-4 left-4 right-4 w-auto" }, /* @__PURE__ */ y(Button, { fullWidth: true, onClick: handleClick }, "Apply Styles")), /* @__PURE__ */ y(
+    function handleClick() {
+      try {
+        emit("APPLY_CSS", value);
+        setMessage("Styles applied successfully!");
+      } catch (error) {
+        setMessage("An error occurred while applying styles");
+      }
+    }
+    return /* @__PURE__ */ y("div", { className: "flex flex-col h-full relative" }, /* @__PURE__ */ y("div", { className: "absolute bottom-4 left-4 right-4 w-auto" }, /* @__PURE__ */ y(Button, { fullWidth: true, onClick: handleClick }, message)), /* @__PURE__ */ y(
       "textarea",
       {
         placeholder: "// Paste your CSS",
         onInput: handleInput,
         onBlur: handleBlur,
         value,
-        className: "p-2 h-full bg-indigo-950 text-lime-300 font-mono placeholder:text-indigo-400 placeholder:text-opacity-50"
+        className: "p-2 h-full bg-[#2C2C2C] text-lime-300 font-mono placeholder:text-white placeholder:text-opacity-30"
       }
     ));
   }

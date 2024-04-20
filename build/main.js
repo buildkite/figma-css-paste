@@ -3537,6 +3537,7 @@ var init_main = __esm({
       color: { applyFn: applyTextColor },
       "background-color": { applyFn: applyBackgroundColor },
       border: { applyFn: applyBorderShorthand, parser: parseBorderProperty },
+      // test for separate borders
       "border-color": { applyFn: applyStrokeColor },
       "border-width": { applyFn: applyStrokeWidth },
       "border-style": { applyFn: applyStrokeStyle },
@@ -3544,6 +3545,29 @@ var init_main = __esm({
         { applyFn: applyDropShadow, parser: parseDropShadow },
         { applyFn: applyInnerShadow, parser: parseInnerShadow }
       ]
+      // Todo
+      // font-family
+      // font-weight
+      // font-size
+      // font-style
+      // line-height
+      // letter-spacing
+      // text-align
+      // color
+      // text-decoration
+      // background-image (gradients, images)
+      // text-shadow
+      // opacity
+      // pading
+      // flex
+      // flex-direction
+      // algin-items
+      // justify-content
+      // flex-wrap
+      // flex-grow
+      // filter: blur (layer blur)
+      // backdrop-filter? (background blur)
+      // background-blend-mode (layer blend mode)
     };
   }
 });

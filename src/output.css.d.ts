@@ -1,6 +1,7 @@
 declare const styles: {
   readonly "absolute": string;
   readonly "bg-[#222436]": string;
+  readonly "bg-[#2C2C2C]": string;
   readonly "bg-figma-gray-light": string;
   readonly "bg-indigo-900": string;
   readonly "bg-indigo-950": string;
@@ -16,6 +17,9 @@ declare const styles: {
   readonly "flex": string;
   readonly "flex-1": string;
   readonly "flex-col": string;
+  readonly "flex-grow": string;
+  readonly "flex-shrink": string;
+  readonly "flex-wrap": string;
   readonly "focus-within:bg-transparent": string;
   readonly "focus-within:ring-2": string;
   readonly "focus-within:ring-[#3E8AE2]": string;
@@ -45,13 +49,16 @@ declare const styles: {
   readonly "overflow-scroll": string;
   readonly "p-2": string;
   readonly "p-4": string;
+  readonly "placeholder:text-gray-500": string;
   readonly "placeholder:text-indigo-400": string;
   readonly "placeholder:text-indigo-700": string;
   readonly "placeholder:text-indigo-700/50": string;
   readonly "placeholder:text-indigo-800": string;
   readonly "placeholder:text-indigo-800/50": string;
   readonly "placeholder:text-indigo-900": string;
+  readonly "placeholder:text-opacity-30": string;
   readonly "placeholder:text-opacity-50": string;
+  readonly "placeholder:text-white": string;
   readonly "relative": string;
   readonly "resize": string;
   readonly "resize-none": string;
@@ -67,6 +74,7 @@ declare const styles: {
   readonly "shadow": string;
   readonly "space-x-4": string;
   readonly "text-3xl": string;
+  readonly "text-gray-500": string;
   readonly "text-indigo-400": string;
   readonly "text-indigo-700": string;
   readonly "text-indigo-700/50": string;
@@ -75,9 +83,11 @@ declare const styles: {
   readonly "text-indigo-900": string;
   readonly "text-lime-300": string;
   readonly "text-lime-500": string;
+  readonly "text-opacity-30": string;
   readonly "text-opacity-50": string;
   readonly "text-right": string;
   readonly "text-transparent": string;
+  readonly "text-white": string;
   readonly "top-0": string;
   readonly "underline": string;
   readonly "visible": string;

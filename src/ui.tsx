@@ -18,6 +18,7 @@ function Plugin() {
   });
 
   const [value, setValue] = useState<string>("");
+  const [message, setMessage] = useState<string>("Apply Styles");
 
   // Reorder CSS so color it's first before submission because Figma things
   function handleBlur(event: JSX.TargetedEvent<HTMLTextAreaElement>) {
@@ -37,15 +38,20 @@ function Plugin() {
     setValue(newValue);
   }
 
-  const handleClick = () => {
-    emit("APPLY_CSS", value);
-  };
+  function handleClick() {
+    try {
+      emit("APPLY_CSS", value);
+      setMessage("Styles applied successfully!");
+    } catch (error) {
+      setMessage("An error occurred while applying styles");
+    }
+  }
 
   return (
     <div className="flex flex-col h-full relative">
       <div className="absolute bottom-4 left-4 right-4 w-auto">
         <Button fullWidth onClick={handleClick}>
-          Apply Styles
+          {message}
         </Button>
       </div>
       <textarea
@@ -53,7 +59,7 @@ function Plugin() {
         onInput={handleInput}
         onBlur={handleBlur}
         value={value}
-        className="p-2 h-full bg-indigo-950 text-lime-300 font-mono placeholder:text-indigo-400 placeholder:text-opacity-50"
+        className="p-2 h-full bg-[#2C2C2C] text-lime-300 font-mono placeholder:text-white placeholder:text-opacity-30"
       />
     </div>
   );
