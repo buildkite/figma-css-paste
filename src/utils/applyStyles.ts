@@ -11,12 +11,10 @@ export function applyStylerToSelection(
   let propValue = extractCSSProperty(css, property);
 
   if (propValue !== "" && propValue !== null) {
-    const parsedPropValue = propertyParser
+    const parsedPropValues = propertyParser
       ? propertyParser(propValue)
       : propValue;
     const selectedNodes = figma.currentPage.selection;
-    selectedNodes.forEach((node) =>
-      styler(node, ...[].concat(parsedPropValue))
-    );
+    selectedNodes.forEach((node) => styler(node, parsedPropValues));
   }
 }

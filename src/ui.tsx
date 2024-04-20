@@ -43,17 +43,19 @@ function Plugin() {
   };
 
   return (
-    <div className="flex flex-col h-full p-4 gap-4">
+    <div className="flex flex-col h-full relative">
+      <div className="absolute bottom-4 left-4 right-4 w-auto">
+        <Button fullWidth onClick={handleClick}>
+          Apply Styles
+        </Button>
+      </div>
       <textarea
-        placeholder="Paste your CSS or Tailwind classes"
+        placeholder="// Paste your CSS"
         onInput={handleInput}
         onBlur={handleBlur}
         value={value}
-        className="p-2 h-full bg-indigo-950 text-lime-300 rounded-sm focus:ring-2 ring-figma-gray focus:ring-figma-blue hover:ring-figma-gray-light ring-1 focus:bg-[#222436] font-mono"
+        className="p-2 h-full bg-indigo-950 text-lime-300 font-mono placeholder:text-indigo-400 placeholder:text-opacity-50"
       />
-      <Button fullWidth onClick={handleClick}>
-        Apply Styles
-      </Button>
     </div>
   );
 }

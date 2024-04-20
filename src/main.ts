@@ -10,7 +10,12 @@ import {
   parseBorderProperty,
 } from "./utils/css/border";
 import { applyStylerToSelection } from "./utils/applyStyles";
-import { applyBoxShadow, parseBoxShadow } from "./utils/css/shadow";
+import {
+  applyDropShadow,
+  applyInnerShadow,
+  parseDropShadow,
+  parseInnerShadow,
+} from "./utils/css/shadow";
 
 const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
@@ -19,8 +24,12 @@ const stylerFunctions: { [key: string]: any } = {
   "border-color": { applyFn: applyBorderColor },
   "border-width": { applyFn: applyBorderWidth },
   "border-style": { applyFn: applyBorderStyle },
-  "box-shadow": { applyFn: applyBoxShadow, parser: parseBoxShadow },
+  "box-shadow": [
+    { applyFn: applyDropShadow, parser: parseDropShadow },
+    { applyFn: applyInnerShadow, parser: parseInnerShadow },
+  ],
 };
+
 export default function () {
   const options = { width: 300, height: 360 };
 
@@ -30,11 +39,18 @@ export default function () {
   });
 
   on("APPLY_CSS", (css: string) => {
-    Object.entries(stylerFunctions).forEach(
-      ([property, { applyFn, parser }]) => {
+    Object.entries(stylerFunctions).forEach(([property, value]) => {
+      if (Array.isArray(value)) {
+        // Multiple functions for the property
+        value.forEach(({ applyFn, parser }) => {
+          applyStylerToSelection(css, property, applyFn, parser);
+        });
+      } else {
+        // Single function for the property
+        const { applyFn, parser } = value;
         applyStylerToSelection(css, property, applyFn, parser);
       }
-    );
+    });
   });
 
   showUI(options);

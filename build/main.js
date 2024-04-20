@@ -3376,11 +3376,9 @@ var init_extractStyles = __esm({
 function applyStylerToSelection(css, property, styler, propertyParser) {
   let propValue = extractCSSProperty(css, property);
   if (propValue !== "" && propValue !== null) {
-    const parsedPropValue = propertyParser ? propertyParser(propValue) : propValue;
+    const parsedPropValues = propertyParser ? propertyParser(propValue) : propValue;
     const selectedNodes = figma.currentPage.selection;
-    selectedNodes.forEach(
-      (node) => styler(node, ...[].concat(parsedPropValue))
-    );
+    selectedNodes.forEach((node) => styler(node, parsedPropValues));
   }
 }
 var init_applyStyles = __esm({
@@ -3391,32 +3389,105 @@ var init_applyStyles = __esm({
 });
 
 // src/utils/css/shadow.ts
-function parseBoxShadow(boxShadow) {
-  const shadowRegex = /([-+]?[\d\.]+)px?\s+([-+]?[\d\.]+)px?\s+([-+]?[\d\.]+)px?\s*(?:([-+]?[\d\.]+)px?)?\s*((rgb\([\d\s,]+\))|(rgba\([\d\s,\.]+\))|(#([0-9a-f]{3}){1,2})|([a-z]+))/i;
-  const match = boxShadow.match(shadowRegex);
-  if (!match) {
-    return null;
-  }
-  const [, offsetX, offsetY, blur, spread, color] = match;
-  const newColor = (0, import_chroma_js4.default)(color).gl();
-  const effect = {
-    type: "DROP_SHADOW",
-    color: { r: newColor[0], g: newColor[1], b: newColor[2], a: newColor[3] },
-    blendMode: "NORMAL",
-    offset: {
-      x: Number(offsetX),
-      y: Number(offsetY)
-    },
-    radius: Number(blur),
-    spread: spread ? Number(spread) : 0,
-    // If spread is optionally provided
-    visible: true
-  };
-  return effect;
+function parseValue(shadow) {
+  const colorRegEx = /((rgb|rgba|hsl|hsla)\(.*?\))|((#)?([0-9a-f]{3}){1,2}\b)/i;
+  const shadows = shadow.split(/,(?![^\(]*\))/);
+  return shadows.map((item) => {
+    const boxShadow = {
+      inset: false,
+      offsetX: 0,
+      offsetY: 0,
+      blurRadius: 0,
+      spreadRadius: 0,
+      color: ""
+    };
+    const colorMatch = item.match(colorRegEx);
+    if (colorMatch) {
+      boxShadow.color = colorMatch[0];
+      item = item.replace(colorMatch[0], "").trim();
+    }
+    const properties = item.split(" ").filter((prop) => prop.trim() !== "");
+    if (properties[0].toLowerCase() == "inset") {
+      boxShadow.inset = true;
+      properties.shift();
+    }
+    if (properties.length)
+      boxShadow.offsetX = parseFloat(properties[0]);
+    if (properties.length > 1)
+      boxShadow.offsetY = parseFloat(properties[1]);
+    if (properties.length > 2)
+      boxShadow.blurRadius = parseFloat(properties[2]);
+    if (properties.length > 3)
+      boxShadow.spreadRadius = parseFloat(properties[3]);
+    return boxShadow;
+  });
 }
-function applyBoxShadow(node, effect) {
-  if ("effects" in node && effect) {
-    node.effects = [effect];
+function parseInnerShadow(boxShadow) {
+  const shadowValues = parseValue(boxShadow);
+  const effects = [];
+  shadowValues.filter((boxValue) => boxValue.inset).forEach((boxValue) => {
+    const convertedColor = import_chroma_js4.default.valid(boxValue.color) ? (0, import_chroma_js4.default)(boxValue.color).gl() : [0, 0, 0, 1];
+    const effect = {
+      type: "INNER_SHADOW",
+      color: {
+        r: convertedColor[0],
+        g: convertedColor[1],
+        b: convertedColor[2],
+        a: convertedColor[3]
+      },
+      blendMode: "NORMAL",
+      offset: {
+        x: boxValue.offsetX,
+        y: boxValue.offsetY
+      },
+      radius: boxValue.blurRadius,
+      spread: boxValue.spreadRadius,
+      visible: true
+    };
+    effects.push(effect);
+  });
+  return effects.reverse();
+}
+function parseDropShadow(boxShadow) {
+  const shadowValues = parseValue(boxShadow);
+  const effects = [];
+  shadowValues.filter((boxValue) => !boxValue.inset).forEach((boxValue) => {
+    const convertedColor = import_chroma_js4.default.valid(boxValue.color) ? (0, import_chroma_js4.default)(boxValue.color).gl() : [0, 0, 0, 1];
+    const effect = {
+      type: "DROP_SHADOW",
+      color: {
+        r: convertedColor[0],
+        g: convertedColor[1],
+        b: convertedColor[2],
+        a: convertedColor[3]
+      },
+      blendMode: "NORMAL",
+      offset: {
+        x: boxValue.offsetX,
+        y: boxValue.offsetY
+      },
+      radius: boxValue.blurRadius,
+      spread: boxValue.spreadRadius,
+      visible: true
+    };
+    effects.push(effect);
+  });
+  return effects.reverse();
+}
+function applyInnerShadow(node, effects) {
+  if ("effects" in node) {
+    const existingEffects = node.effects.filter(
+      (effect) => effect.type !== "INNER_SHADOW"
+    );
+    node.effects = [...existingEffects, ...effects];
+  }
+}
+function applyDropShadow(node, effects) {
+  if ("effects" in node) {
+    const existingEffects = node.effects.filter(
+      (effect) => effect.type !== "DROP_SHADOW"
+    );
+    node.effects = [...existingEffects, ...effects];
   }
 }
 var import_chroma_js4;
@@ -3439,11 +3510,16 @@ function main_default() {
     figma.ui.resize(width, height);
   });
   on("APPLY_CSS", (css) => {
-    Object.entries(stylerFunctions).forEach(
-      ([property, { applyFn, parser }]) => {
+    Object.entries(stylerFunctions).forEach(([property, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach(({ applyFn, parser }) => {
+          applyStylerToSelection(css, property, applyFn, parser);
+        });
+      } else {
+        const { applyFn, parser } = value;
         applyStylerToSelection(css, property, applyFn, parser);
       }
-    );
+    });
   });
   showUI(options);
 }
@@ -3464,7 +3540,10 @@ var init_main = __esm({
       "border-color": { applyFn: applyStrokeColor },
       "border-width": { applyFn: applyStrokeWidth },
       "border-style": { applyFn: applyStrokeStyle },
-      "box-shadow": { applyFn: applyBoxShadow, parser: parseBoxShadow }
+      "box-shadow": [
+        { applyFn: applyDropShadow, parser: parseDropShadow },
+        { applyFn: applyInnerShadow, parser: parseInnerShadow }
+      ]
     };
   }
 });

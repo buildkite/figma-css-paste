@@ -1,107 +1,149 @@
 import chroma from "chroma-js";
 
-export function parseBoxShadow(boxShadow: string): DropShadowEffect | null {
-  // Matches different parts of the box-shadow CSS property
-  const shadowRegex =
-    /([-+]?[\d\.]+)px?\s+([-+]?[\d\.]+)px?\s+([-+]?[\d\.]+)px?\s*(?:([-+]?[\d\.]+)px?)?\s*((rgb\([\d\s,]+\))|(rgba\([\d\s,\.]+\))|(#([0-9a-f]{3}){1,2})|([a-z]+))/i;
+const toNum = (str: string) => {
+  let match = str.match(/-?\d*\.?\d+/);
+  return match ? parseFloat(match[0]) : 0; // return 0 instead of NaN
+};
 
-  const match = boxShadow.match(shadowRegex);
-  if (!match) {
-    return null;
-  }
+type BoxShadow = {
+  inset: boolean;
+  offsetX: number;
+  offsetY: number;
+  blurRadius: number;
+  spreadRadius: number;
+  color: string;
+};
 
-  const [, offsetX, offsetY, blur, spread, color] = match;
-  const newColor = chroma(color).gl();
+function parseValue(shadow: string): BoxShadow[] {
+  // Regular expression for matching color values
+  const colorRegEx = /((rgb|rgba|hsl|hsla)\(.*?\))|((#)?([0-9a-f]{3}){1,2}\b)/i;
 
-  const effect: DropShadowEffect = {
-    type: "DROP_SHADOW",
-    color: { r: newColor[0], g: newColor[1], b: newColor[2], a: newColor[3] },
-    blendMode: "NORMAL",
-    offset: {
-      x: Number(offsetX),
-      y: Number(offsetY),
-    },
-    radius: Number(blur),
-    spread: spread ? Number(spread) : 0, // If spread is optionally provided
-    visible: true,
-  };
+  // Separate individual shadows
+  const shadows = shadow.split(/,(?![^\(]*\))/);
 
-  return effect;
+  // Iterate through the shadows and parse them
+  return shadows.map((item) => {
+    // Default box-shadow object
+    const boxShadow: BoxShadow = {
+      inset: false,
+      offsetX: 0,
+      offsetY: 0,
+      blurRadius: 0,
+      spreadRadius: 0,
+      color: "",
+    };
+
+    // Check if color is defined
+    const colorMatch = item.match(colorRegEx);
+    if (colorMatch) {
+      boxShadow.color = colorMatch[0];
+      item = item.replace(colorMatch[0], "").trim(); // Remove color from item
+    }
+
+    // Split remaining properties
+    const properties = item.split(" ").filter((prop) => prop.trim() !== "");
+
+    if (properties[0].toLowerCase() == "inset") {
+      boxShadow.inset = true;
+      properties.shift(); // Remove 'inset'
+    }
+
+    if (properties.length) boxShadow.offsetX = parseFloat(properties[0]);
+    if (properties.length > 1) boxShadow.offsetY = parseFloat(properties[1]);
+    if (properties.length > 2) boxShadow.blurRadius = parseFloat(properties[2]);
+    if (properties.length > 3)
+      boxShadow.spreadRadius = parseFloat(properties[3]);
+
+    return boxShadow;
+  });
 }
 
-export function applyBoxShadow(
-  node: BaseNode,
-  effect: DropShadowEffect | null
-) {
-  if ("effects" in node && effect) {
-    node.effects = [effect];
+export function parseInnerShadow(boxShadow: string): InnerShadowEffect[] {
+  const shadowValues = parseValue(boxShadow);
+  const effects: InnerShadowEffect[] = [];
+
+  shadowValues
+    .filter((boxValue) => boxValue.inset)
+    .forEach((boxValue) => {
+      const convertedColor = chroma.valid(boxValue.color)
+        ? chroma(boxValue.color).gl()
+        : [0, 0, 0, 1]; // Default to black if color is invalid
+
+      const effect: InnerShadowEffect = {
+        type: "INNER_SHADOW",
+        color: {
+          r: convertedColor[0],
+          g: convertedColor[1],
+          b: convertedColor[2],
+          a: convertedColor[3],
+        },
+        blendMode: "NORMAL",
+        offset: {
+          x: boxValue.offsetX,
+          y: boxValue.offsetY,
+        },
+        radius: boxValue.blurRadius,
+        spread: boxValue.spreadRadius,
+        visible: true,
+      };
+
+      effects.push(effect);
+    });
+
+  return effects.reverse();
+}
+
+export function parseDropShadow(boxShadow: string): DropShadowEffect[] {
+  const shadowValues = parseValue(boxShadow);
+  const effects: DropShadowEffect[] = [];
+
+  shadowValues
+    .filter((boxValue) => !boxValue.inset)
+    .forEach((boxValue) => {
+      const convertedColor = chroma.valid(boxValue.color)
+        ? chroma(boxValue.color).gl()
+        : [0, 0, 0, 1]; // Default to black if color is invalid
+
+      const effect: DropShadowEffect = {
+        type: "DROP_SHADOW",
+        color: {
+          r: convertedColor[0],
+          g: convertedColor[1],
+          b: convertedColor[2],
+          a: convertedColor[3],
+        },
+        blendMode: "NORMAL",
+        offset: {
+          x: boxValue.offsetX,
+          y: boxValue.offsetY,
+        },
+        radius: boxValue.blurRadius,
+        spread: boxValue.spreadRadius,
+        visible: true,
+      };
+
+      effects.push(effect);
+    });
+
+  return effects.reverse();
+}
+
+export function applyInnerShadow(node: BaseNode, effects: InnerShadowEffect[]) {
+  if ("effects" in node) {
+    const existingEffects = node.effects.filter(
+      (effect: Effect) => effect.type !== "INNER_SHADOW"
+    );
+
+    node.effects = [...existingEffects, ...effects];
   }
 }
 
-export function parseBoxShadow2(boxShadow: string): DropShadowEffect | null {
-  let splittetInput = "";
-  let listOfShadows: string[] = [];
-  let listOfInnerShadows: string[] = [];
-  let currentShadow = "";
+export function applyDropShadow(node: BaseNode, effects: DropShadowEffect[]) {
+  if ("effects" in node) {
+    const existingEffects = node.effects.filter(
+      (effect: Effect) => effect.type !== "DROP_SHADOW"
+    );
 
-  function splitShadows(inputCSS: string) {
-    // Remove Line Breaks if necessary
-    inputCSS = inputCSS.replace(/(\r\n|\n|\r)/gm, "");
-
-    // Split Shadows at ) and add ) again for each shadow
-    listOfShadows = splittetInput.map((shadow) => shadow + ")").slice(0, -1);
-
-    for (let i = listOfShadows.length - 1; i >= 0; i--) {
-      if (listOfShadows[i].includes("inset")) {
-        listOfInnerShadows.push(listOfShadows[i]);
-        listOfShadows.splice(i, 1);
-      }
-    }
+    node.effects = [...existingEffects, ...effects];
   }
-
-  function getShadowStyleData(input: string) {
-    if (currentShadow.includes("inset")) {
-      currentShadow = currentShadow.split("inset ")[1];
-    }
-
-    if (currentShadow.includes(", ")) {
-      currentShadow = currentShadow.slice(1);
-    }
-
-    currentShadow = currentShadow.trim().split(" ");
-
-    if (currentShadow.length === 5) {
-      outputX = Math.round(parseFloat(currentShadow[0])).toString();
-      outputY = Math.round(parseFloat(currentShadow[1])).toString();
-      outputBlur = Math.round(parseFloat(currentShadow[2])).toString();
-      outputSpread = Math.round(parseFloat(currentShadow[3])).toString();
-      outputColor = chroma(currentShadow[4]).hex();
-    } else if (currentShadow.length === 4) {
-      outputX = Math.round(parseFloat(currentShadow[0])).toString();
-      outputY = Math.round(parseFloat(currentShadow[1])).toString();
-      outputBlur = Math.round(parseFloat(currentShadow[2])).toString();
-      outputColor = chroma(currentShadow[3]).gl();
-      outputSpread = "0";
-    }
-  }
-
-  const effect: DropShadowEffect = {
-    type: "DROP_SHADOW",
-    color: {
-      r: outputColor[0],
-      g: outputColor[1],
-      b: outputColor[2],
-      a: outputColor[3],
-    },
-    blendMode: "NORMAL",
-    offset: {
-      x: Number(outputX),
-      y: Number(outputY),
-    },
-    radius: Number(outputBlur),
-    spread: outputSpread ? Number(outputSpread) : 0, // If spread is optionally provided
-    visible: true,
-  };
-
-  return effect;
 }

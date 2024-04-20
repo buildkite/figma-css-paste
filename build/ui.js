@@ -728,10 +728,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c87a0ef4-64e7-49ba-9d3b-1643d8637bbf/loading-indicator.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/0e44bd44-f6cb-4cee-8540-c821647a0ec7/loading-indicator.module.js
   var loading_indicator_module_default;
   var init_loading_indicator_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c87a0ef4-64e7-49ba-9d3b-1643d8637bbf/loading-indicator.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/0e44bd44-f6cb-4cee-8540-c821647a0ec7/loading-indicator.module.js"() {
       if (document.getElementById("c891e05b54") === null) {
         const element = document.createElement("style");
         element.id = "c891e05b54";
@@ -792,10 +792,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c2bec385-4693-4474-bf15-4a4a8a434f75/button.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/3efdf913-5a45-4992-9296-c7a1da9db773/button.module.js
   var button_module_default;
   var init_button_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c2bec385-4693-4474-bf15-4a4a8a434f75/button.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/3efdf913-5a45-4992-9296-c7a1da9db773/button.module.js"() {
       if (document.getElementById("4cebeccae6") === null) {
         const element = document.createElement("style");
         element.id = "4cebeccae6";
@@ -1195,9 +1195,9 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/fb5a9c77-5212-45f8-8f42-3fc3e3019ef5/base.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/cad3f072-5336-474f-a1bd-fe1e1afe742f/base.js
   var init_base = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/fb5a9c77-5212-45f8-8f42-3fc3e3019ef5/base.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/cad3f072-5336-474f-a1bd-fe1e1afe742f/base.js"() {
       if (document.getElementById("cfec39da5a") === null) {
         const element = document.createElement("style");
         element.id = "cfec39da5a";
@@ -1326,9 +1326,9 @@ svg {
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/9617d3b9-121c-4914-80f9-2fa6eee7b632/output.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c9924871-4bc4-446e-a228-937b2b6f8769/output.js
   var init_output = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/9617d3b9-121c-4914-80f9-2fa6eee7b632/output.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c9924871-4bc4-446e-a228-937b2b6f8769/output.js"() {
       if (document.getElementById("d735de220f") === null) {
         const element = document.createElement("style");
         element.id = "d735de220f";
@@ -1900,6 +1900,22 @@ video {
   position: relative;
 }
 
+.bottom-4 {
+  bottom: 1rem;
+}
+
+.bottom-6 {
+  bottom: 1.5rem;
+}
+
+.left-4 {
+  left: 1rem;
+}
+
+.right-4 {
+  right: 1rem;
+}
+
 .flex {
   display: flex;
 }
@@ -1919,6 +1935,10 @@ video {
 
 .h-full {
   height: 100%;
+}
+
+.w-auto {
+  width: auto;
 }
 
 .w-full {
@@ -1980,23 +2000,14 @@ video {
   border-width: 1px;
 }
 
-.bg-figma-gray-light {
-  --tw-bg-opacity: 1;
-  background-color: rgb(85 85 85 / var(--tw-bg-opacity));
-}
-
-.bg-transparent {
-  background-color: transparent;
-}
-
 .bg-[#222436] {
   --tw-bg-opacity: 1;
   background-color: rgb(34 36 54 / var(--tw-bg-opacity));
 }
 
-.bg-red-500 {
+.bg-figma-gray-light {
   --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+  background-color: rgb(85 85 85 / var(--tw-bg-opacity));
 }
 
 .bg-indigo-900 {
@@ -2004,14 +2015,23 @@ video {
   background-color: rgb(49 46 129 / var(--tw-bg-opacity));
 }
 
+.bg-indigo-950 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 27 75 / var(--tw-bg-opacity));
+}
+
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
 .bg-slate-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(15 23 42 / var(--tw-bg-opacity));
 }
 
-.bg-indigo-950 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 27 75 / var(--tw-bg-opacity));
+.bg-transparent {
+  background-color: transparent;
 }
 
 .p-2 {
@@ -2039,13 +2059,45 @@ video {
   font-weight: 700;
 }
 
-.text-transparent {
-  color: transparent;
+.text-indigo-400 {
+  --tw-text-opacity: 1;
+  color: rgb(129 140 248 / var(--tw-text-opacity));
+}
+
+.text-indigo-700 {
+  --tw-text-opacity: 1;
+  color: rgb(67 56 202 / var(--tw-text-opacity));
+}
+
+.text-indigo-700/50 {
+  color: rgb(67 56 202 / 0.5);
+}
+
+.text-indigo-800 {
+  --tw-text-opacity: 1;
+  color: rgb(55 48 163 / var(--tw-text-opacity));
+}
+
+.text-indigo-800/50 {
+  color: rgb(55 48 163 / 0.5);
+}
+
+.text-indigo-900 {
+  --tw-text-opacity: 1;
+  color: rgb(49 46 129 / var(--tw-text-opacity));
 }
 
 .text-lime-300 {
   --tw-text-opacity: 1;
   color: rgb(190 242 100 / var(--tw-text-opacity));
+}
+
+.text-transparent {
+  color: transparent;
+}
+
+.text-opacity-50 {
+  --tw-text-opacity: 0.5;
 }
 
 .underline {
@@ -2125,6 +2177,70 @@ textarea {
   color: #fff;
 }
 
+.placeholder\\:text-indigo-400::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(129 140 248 / var(--tw-text-opacity));
+}
+
+.placeholder\\:text-indigo-400::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(129 140 248 / var(--tw-text-opacity));
+}
+
+.placeholder\\:text-indigo-700::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(67 56 202 / var(--tw-text-opacity));
+}
+
+.placeholder\\:text-indigo-700::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(67 56 202 / var(--tw-text-opacity));
+}
+
+.placeholder\\:text-indigo-700/50::-moz-placeholder {
+  color: rgb(67 56 202 / 0.5);
+}
+
+.placeholder\\:text-indigo-700/50::placeholder {
+  color: rgb(67 56 202 / 0.5);
+}
+
+.placeholder\\:text-indigo-800::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(55 48 163 / var(--tw-text-opacity));
+}
+
+.placeholder\\:text-indigo-800::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(55 48 163 / var(--tw-text-opacity));
+}
+
+.placeholder\\:text-indigo-800/50::-moz-placeholder {
+  color: rgb(55 48 163 / 0.5);
+}
+
+.placeholder\\:text-indigo-800/50::placeholder {
+  color: rgb(55 48 163 / 0.5);
+}
+
+.placeholder\\:text-indigo-900::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(49 46 129 / var(--tw-text-opacity));
+}
+
+.placeholder\\:text-indigo-900::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(49 46 129 / var(--tw-text-opacity));
+}
+
+.placeholder\\:text-opacity-50::-moz-placeholder {
+  --tw-text-opacity: 0.5;
+}
+
+.placeholder\\:text-opacity-50::placeholder {
+  --tw-text-opacity: 0.5;
+}
+
 .focus-within\\:bg-transparent:focus-within {
   background-color: transparent;
 }
@@ -2171,13 +2287,13 @@ textarea {
   --tw-ring-color: rgb(85 85 85 / var(--tw-ring-opacity));
 }
 
-.focus\\:bg-transparent:focus {
-  background-color: transparent;
-}
-
 .focus\\:bg-[#222436]:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(34 36 54 / var(--tw-bg-opacity));
+}
+
+.focus\\:bg-transparent:focus {
+  background-color: transparent;
 }
 
 .focus\\:ring-2:focus {
@@ -2246,16 +2362,16 @@ textarea {
     const handleClick = () => {
       emit("APPLY_CSS", value);
     };
-    return /* @__PURE__ */ y("div", { className: "flex flex-col h-full p-4 gap-4" }, /* @__PURE__ */ y(
+    return /* @__PURE__ */ y("div", { className: "flex flex-col h-full relative" }, /* @__PURE__ */ y("div", { className: "absolute bottom-4 left-4 right-4 w-auto" }, /* @__PURE__ */ y(Button, { fullWidth: true, onClick: handleClick }, "Apply Styles")), /* @__PURE__ */ y(
       "textarea",
       {
-        placeholder: "Paste your CSS or Tailwind classes",
+        placeholder: "// Paste your CSS",
         onInput: handleInput,
         onBlur: handleBlur,
         value,
-        className: "p-2 h-full bg-indigo-950 text-lime-300 rounded-sm focus:ring-2 ring-figma-gray focus:ring-figma-blue hover:ring-figma-gray-light ring-1 focus:bg-[#222436] font-mono"
+        className: "p-2 h-full bg-indigo-950 text-lime-300 font-mono placeholder:text-indigo-400 placeholder:text-opacity-50"
       }
-    ), /* @__PURE__ */ y(Button, { fullWidth: true, onClick: handleClick }, "Apply Styles"));
+    ));
   }
   var ui_default;
   var init_ui = __esm({

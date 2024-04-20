@@ -566,6 +566,22 @@ video {
   position: relative;
 }
 
+.bottom-4 {
+  bottom: 1rem;
+}
+
+.bottom-6 {
+  bottom: 1.5rem;
+}
+
+.left-4 {
+  left: 1rem;
+}
+
+.right-4 {
+  right: 1rem;
+}
+
 .flex {
   display: flex;
 }
@@ -585,6 +601,10 @@ video {
 
 .h-full {
   height: 100%;
+}
+
+.w-auto {
+  width: auto;
 }
 
 .w-full {
@@ -646,23 +666,14 @@ video {
   border-width: 1px;
 }
 
-.bg-figma-gray-light {
-  --tw-bg-opacity: 1;
-  background-color: rgb(85 85 85 / var(--tw-bg-opacity));
-}
-
-.bg-transparent {
-  background-color: transparent;
-}
-
 .bg-\[\#222436\] {
   --tw-bg-opacity: 1;
   background-color: rgb(34 36 54 / var(--tw-bg-opacity));
 }
 
-.bg-red-500 {
+.bg-figma-gray-light {
   --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+  background-color: rgb(85 85 85 / var(--tw-bg-opacity));
 }
 
 .bg-indigo-900 {
@@ -670,14 +681,23 @@ video {
   background-color: rgb(49 46 129 / var(--tw-bg-opacity));
 }
 
+.bg-indigo-950 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 27 75 / var(--tw-bg-opacity));
+}
+
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
 .bg-slate-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(15 23 42 / var(--tw-bg-opacity));
 }
 
-.bg-indigo-950 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 27 75 / var(--tw-bg-opacity));
+.bg-transparent {
+  background-color: transparent;
 }
 
 .p-2 {
@@ -705,13 +725,45 @@ video {
   font-weight: 700;
 }
 
-.text-transparent {
-  color: transparent;
+.text-indigo-400 {
+  --tw-text-opacity: 1;
+  color: rgb(129 140 248 / var(--tw-text-opacity));
+}
+
+.text-indigo-700 {
+  --tw-text-opacity: 1;
+  color: rgb(67 56 202 / var(--tw-text-opacity));
+}
+
+.text-indigo-700\/50 {
+  color: rgb(67 56 202 / 0.5);
+}
+
+.text-indigo-800 {
+  --tw-text-opacity: 1;
+  color: rgb(55 48 163 / var(--tw-text-opacity));
+}
+
+.text-indigo-800\/50 {
+  color: rgb(55 48 163 / 0.5);
+}
+
+.text-indigo-900 {
+  --tw-text-opacity: 1;
+  color: rgb(49 46 129 / var(--tw-text-opacity));
 }
 
 .text-lime-300 {
   --tw-text-opacity: 1;
   color: rgb(190 242 100 / var(--tw-text-opacity));
+}
+
+.text-transparent {
+  color: transparent;
+}
+
+.text-opacity-50 {
+  --tw-text-opacity: 0.5;
 }
 
 .underline {
@@ -791,6 +843,70 @@ textarea {
   color: #fff;
 }
 
+.placeholder\:text-indigo-400::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(129 140 248 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-indigo-400::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(129 140 248 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-indigo-700::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(67 56 202 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-indigo-700::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(67 56 202 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-indigo-700\/50::-moz-placeholder {
+  color: rgb(67 56 202 / 0.5);
+}
+
+.placeholder\:text-indigo-700\/50::placeholder {
+  color: rgb(67 56 202 / 0.5);
+}
+
+.placeholder\:text-indigo-800::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(55 48 163 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-indigo-800::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(55 48 163 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-indigo-800\/50::-moz-placeholder {
+  color: rgb(55 48 163 / 0.5);
+}
+
+.placeholder\:text-indigo-800\/50::placeholder {
+  color: rgb(55 48 163 / 0.5);
+}
+
+.placeholder\:text-indigo-900::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(49 46 129 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-indigo-900::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(49 46 129 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-opacity-50::-moz-placeholder {
+  --tw-text-opacity: 0.5;
+}
+
+.placeholder\:text-opacity-50::placeholder {
+  --tw-text-opacity: 0.5;
+}
+
 .focus-within\:bg-transparent:focus-within {
   background-color: transparent;
 }
@@ -837,13 +953,13 @@ textarea {
   --tw-ring-color: rgb(85 85 85 / var(--tw-ring-opacity));
 }
 
-.focus\:bg-transparent:focus {
-  background-color: transparent;
-}
-
 .focus\:bg-\[\#222436\]:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(34 36 54 / var(--tw-bg-opacity));
+}
+
+.focus\:bg-transparent:focus {
+  background-color: transparent;
 }
 
 .focus\:ring-2:focus {
