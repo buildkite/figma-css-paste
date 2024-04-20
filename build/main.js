@@ -3289,12 +3289,40 @@ var init_background = __esm({
   }
 });
 
-// src/utils/css/border.ts
+// src/utils/extractStyles.ts
+function extractCSSProperty(css, property) {
+  const regex = new RegExp(`${property}:\\s*(.*?)\\s*;`);
+  const match = css.match(regex);
+  return match ? match[1] : null;
+}
+var init_extractStyles = __esm({
+  "src/utils/extractStyles.ts"() {
+    "use strict";
+  }
+});
+
+// src/utils/applyStyles.ts
+function applyStylerToSelection(css, property, styler, propertyParser) {
+  let propValue = extractCSSProperty(css, property);
+  if (propValue !== "" && propValue !== null) {
+    const parsedPropValues = propertyParser ? propertyParser(propValue) : propValue;
+    const selectedNodes = figma.currentPage.selection;
+    selectedNodes.forEach((node) => styler(node, parsedPropValues));
+  }
+}
 function applyProperty(node, property, value) {
   if (node && property in node) {
     node[property] = value;
   }
 }
+var init_applyStyles = __esm({
+  "src/utils/applyStyles.ts"() {
+    "use strict";
+    init_extractStyles();
+  }
+});
+
+// src/utils/css/border.ts
 function applyBorderShorthand(node, width, style, color) {
   var _a, _b;
   const numericWidth = parseFloat(width);
@@ -3352,39 +3380,36 @@ function parseBorderProperty(border) {
   }
   return void 0;
 }
+function applyLeftStrokeWidth(node, width) {
+  applyProperty(node, "strokeLeftWeight", parseFloat(width));
+}
+function applyRightStrokeWidth(node, width) {
+  applyProperty(node, "strokeRightWeight", parseFloat(width));
+}
+function applyBottomStrokeWidth(node, width) {
+  applyProperty(node, "strokeBottomWeight", parseFloat(width));
+}
+function applyTopStrokeWidth(node, width) {
+  applyProperty(node, "strokeTopWeight", parseFloat(width));
+}
+function applyLeftStrokeColor(node, color) {
+  applyProperty(node, "strokes", [figma.util.solidPaint((0, import_chroma_js3.default)(color).hex())]);
+}
+function applyRightStrokeColor(node, color) {
+  applyProperty(node, "strokes", [figma.util.solidPaint((0, import_chroma_js3.default)(color).hex())]);
+}
+function applyTopStrokeColor(node, color) {
+  applyProperty(node, "strokes", [figma.util.solidPaint((0, import_chroma_js3.default)(color).hex())]);
+}
+function applyBottomStrokeColor(node, color) {
+  applyProperty(node, "strokes", [figma.util.solidPaint((0, import_chroma_js3.default)(color).hex())]);
+}
 var import_chroma_js3;
 var init_border = __esm({
   "src/utils/css/border.ts"() {
     "use strict";
     import_chroma_js3 = __toESM(require_chroma_js());
-  }
-});
-
-// src/utils/extractStyles.ts
-function extractCSSProperty(css, property) {
-  const regex = new RegExp(`${property}:\\s*(.*?)\\s*;`);
-  const match = css.match(regex);
-  return match ? match[1] : null;
-}
-var init_extractStyles = __esm({
-  "src/utils/extractStyles.ts"() {
-    "use strict";
-  }
-});
-
-// src/utils/applyStyles.ts
-function applyStylerToSelection(css, property, styler, propertyParser) {
-  let propValue = extractCSSProperty(css, property);
-  if (propValue !== "" && propValue !== null) {
-    const parsedPropValues = propertyParser ? propertyParser(propValue) : propValue;
-    const selectedNodes = figma.currentPage.selection;
-    selectedNodes.forEach((node) => styler(node, parsedPropValues));
-  }
-}
-var init_applyStyles = __esm({
-  "src/utils/applyStyles.ts"() {
-    "use strict";
-    init_extractStyles();
+    init_applyStyles();
   }
 });
 
@@ -3538,6 +3563,14 @@ var init_main = __esm({
       "background-color": { applyFn: applyBackgroundColor },
       border: { applyFn: applyBorderShorthand, parser: parseBorderProperty },
       // test for separate borders
+      "border-top-width": { applyFn: applyTopStrokeWidth },
+      "border-right-width": { applyFn: applyRightStrokeWidth },
+      "border-bottom-width": { applyFn: applyBottomStrokeWidth },
+      "border-left-width": { applyFn: applyLeftStrokeWidth },
+      "border-top-color": { applyFn: applyTopStrokeColor },
+      "border-right-color": { applyFn: applyRightStrokeColor },
+      "border-bottom-color": { applyFn: applyBottomStrokeColor },
+      "border-left-color": { applyFn: applyLeftStrokeColor },
       "border-color": { applyFn: applyStrokeColor },
       "border-width": { applyFn: applyStrokeWidth },
       "border-style": { applyFn: applyStrokeStyle },
@@ -3568,6 +3601,7 @@ var init_main = __esm({
       // filter: blur (layer blur)
       // backdrop-filter? (background blur)
       // background-blend-mode (layer blend mode)
+      // border-radius
     };
   }
 });

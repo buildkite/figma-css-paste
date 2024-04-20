@@ -8,6 +8,14 @@ import {
   applyBorderStyle,
   applyBorderWidth,
   parseBorderProperty,
+  applyLeftStrokeWidth,
+  applyTopStrokeWidth,
+  applyRightStrokeWidth,
+  applyBottomStrokeWidth,
+  applyTopStrokeColor,
+  applyRightStrokeColor,
+  applyBottomStrokeColor,
+  applyLeftStrokeColor,
 } from "./utils/css/border";
 import { applyStylerToSelection } from "./utils/applyStyles";
 import {
@@ -21,6 +29,14 @@ const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
   "background-color": { applyFn: applyBackgroundColor },
   border: { applyFn: applyBorderShorthand, parser: parseBorderProperty }, // test for separate borders
+  "border-top-width": { applyFn: applyTopStrokeWidth },
+  "border-right-width": { applyFn: applyRightStrokeWidth },
+  "border-bottom-width": { applyFn: applyBottomStrokeWidth },
+  "border-left-width": { applyFn: applyLeftStrokeWidth },
+  "border-top-color": { applyFn: applyTopStrokeColor },
+  "border-right-color": { applyFn: applyRightStrokeColor },
+  "border-bottom-color": { applyFn: applyBottomStrokeColor },
+  "border-left-color": { applyFn: applyLeftStrokeColor },
   "border-color": { applyFn: applyBorderColor },
   "border-width": { applyFn: applyBorderWidth },
   "border-style": { applyFn: applyBorderStyle },
@@ -51,6 +67,7 @@ const stylerFunctions: { [key: string]: any } = {
   // filter: blur (layer blur)
   // backdrop-filter? (background blur)
   // background-blend-mode (layer blend mode)
+  // border-radius
 };
 
 export default function () {

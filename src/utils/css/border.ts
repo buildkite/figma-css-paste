@@ -1,19 +1,5 @@
 import chroma from "chroma-js";
-
-type ModifiableGeometryMixin = Omit<
-  GeometryMixin,
-  "fillGeometry" | "strokeGeometry"
->;
-
-function applyProperty(
-  node: ModifiableGeometryMixin,
-  property: keyof ModifiableGeometryMixin,
-  value: any
-) {
-  if (node && property in node) {
-    (node as any)[property] = value;
-  }
-}
+import { applyProperty } from "../applyStyles";
 
 type Style = "solid" | "dashed" | "dotted";
 
@@ -109,4 +95,30 @@ export function parseBorderProperty(
   }
 
   return undefined;
+}
+
+export function applyLeftStrokeWidth(node: GeometryMixin, width: string) {
+  applyProperty(node, "strokeLeftWeight", parseFloat(width));
+}
+export function applyRightStrokeWidth(node: GeometryMixin, width: string) {
+  applyProperty(node, "strokeRightWeight", parseFloat(width));
+}
+export function applyBottomStrokeWidth(node: GeometryMixin, width: string) {
+  applyProperty(node, "strokeBottomWeight", parseFloat(width));
+}
+export function applyTopStrokeWidth(node: GeometryMixin, width: string) {
+  applyProperty(node, "strokeTopWeight", parseFloat(width));
+}
+
+export function applyLeftStrokeColor(node: any, color: string) {
+  applyProperty(node, "strokes", [figma.util.solidPaint(chroma(color).hex())]);
+}
+export function applyRightStrokeColor(node: any, color: string) {
+  applyProperty(node, "strokes", [figma.util.solidPaint(chroma(color).hex())]);
+}
+export function applyTopStrokeColor(node: any, color: string) {
+  applyProperty(node, "strokes", [figma.util.solidPaint(chroma(color).hex())]);
+}
+export function applyBottomStrokeColor(node: any, color: string) {
+  applyProperty(node, "strokes", [figma.util.solidPaint(chroma(color).hex())]);
 }

@@ -1,10 +1,5 @@
 import chroma from "chroma-js";
 
-const toNum = (str: string) => {
-  let match = str.match(/-?\d*\.?\d+/);
-  return match ? parseFloat(match[0]) : 0; // return 0 instead of NaN
-};
-
 type BoxShadow = {
   inset: boolean;
   offsetX: number;
