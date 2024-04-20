@@ -2,10 +2,8 @@
   "dependencies": {
     "@create-figma-plugin/ui": "^3.2.0",
     "@create-figma-plugin/utilities": "^3.2.0",
-    "@uiw/react-textarea-code-editor": "^3.0.2",
     "chroma-js": "^2.4.2",
-    "preact": ">=10",
-    "shikiji": "^0.10.2"
+    "preact": ">=10"
   },
   "devDependencies": {
     "@create-figma-plugin/build": "^3.2.0",

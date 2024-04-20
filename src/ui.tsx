@@ -4,7 +4,6 @@ import "!./output.css";
 import { emit } from "@create-figma-plugin/utilities";
 import { useState } from "preact/hooks";
 import { parseCss } from "./utils/extractStyles";
-import CodeEditor from "@uiw/react-textarea-code-editor";
 
 function Plugin() {
   function onWindowResize(windowSize: { width: number; height: number }) {

@@ -37,7 +37,9 @@ declare const styles: {
   readonly "hover:ring-1": string;
   readonly "hover:ring-figma-gray": string;
   readonly "hover:ring-figma-gray-light": string;
+  readonly "left-0": string;
   readonly "left-4": string;
+  readonly "no-underline": string;
   readonly "opacity-30": string;
   readonly "outline-none": string;
   readonly "overflow-scroll": string;
@@ -72,14 +74,17 @@ declare const styles: {
   readonly "text-indigo-800/50": string;
   readonly "text-indigo-900": string;
   readonly "text-lime-300": string;
+  readonly "text-lime-500": string;
   readonly "text-opacity-50": string;
   readonly "text-right": string;
   readonly "text-transparent": string;
+  readonly "top-0": string;
   readonly "underline": string;
   readonly "visible": string;
   readonly "w-auto": string;
   readonly "w-full": string;
   readonly "w-max": string;
+  readonly "z-10": string;
 };
 export = styles;
 
