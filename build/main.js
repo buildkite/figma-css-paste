@@ -3523,6 +3523,29 @@ var init_shadow = __esm({
   }
 });
 
+// src/utils/css/borderRadius.ts
+function applyBorderRadius(node, width) {
+  applyProperty(node, "cornerRadius", parseFloat(width));
+}
+function applyBorderTopLeftRadius(node, width) {
+  applyProperty(node, "topLeftRadius", parseFloat(width));
+}
+function applyBorderTopRightRadius(node, width) {
+  applyProperty(node, "topRightRadius", parseFloat(width));
+}
+function applyBorderBottomLeftRadius(node, width) {
+  applyProperty(node, "bottomLeftRadius", parseFloat(width));
+}
+function applyBorderBottomRightRadius(node, width) {
+  applyProperty(node, "bottomRightRadius", parseFloat(width));
+}
+var init_borderRadius = __esm({
+  "src/utils/css/borderRadius.ts"() {
+    "use strict";
+    init_applyStyles();
+  }
+});
+
 // src/main.ts
 var main_exports = {};
 __export(main_exports, {
@@ -3558,6 +3581,7 @@ var init_main = __esm({
     init_border();
     init_applyStyles();
     init_shadow();
+    init_borderRadius();
     stylerFunctions = {
       color: { applyFn: applyTextColor },
       "background-color": { applyFn: applyBackgroundColor },
@@ -3574,6 +3598,11 @@ var init_main = __esm({
       "border-color": { applyFn: applyStrokeColor },
       "border-width": { applyFn: applyStrokeWidth },
       "border-style": { applyFn: applyStrokeStyle },
+      "border-radius": { applyFn: applyBorderRadius },
+      "border-top-left-radius": { applyFn: applyBorderTopLeftRadius },
+      "border-top-right-radius": { applyFn: applyBorderTopRightRadius },
+      "border-bottom-left-radius": { applyFn: applyBorderBottomLeftRadius },
+      "border-bottom-right-radius": { applyFn: applyBorderBottomRightRadius },
       "box-shadow": [
         { applyFn: applyDropShadow, parser: parseDropShadow },
         { applyFn: applyInnerShadow, parser: parseInnerShadow }

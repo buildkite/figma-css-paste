@@ -24,6 +24,13 @@ import {
   parseDropShadow,
   parseInnerShadow,
 } from "./utils/css/shadow";
+import {
+  applyBorderBottomLeftRadius,
+  applyBorderBottomRightRadius,
+  applyBorderRadius,
+  applyBorderTopLeftRadius,
+  applyBorderTopRightRadius,
+} from "./utils/css/borderRadius";
 
 const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
@@ -40,6 +47,11 @@ const stylerFunctions: { [key: string]: any } = {
   "border-color": { applyFn: applyBorderColor },
   "border-width": { applyFn: applyBorderWidth },
   "border-style": { applyFn: applyBorderStyle },
+  "border-radius": { applyFn: applyBorderRadius },
+  "border-top-left-radius": { applyFn: applyBorderTopLeftRadius },
+  "border-top-right-radius": { applyFn: applyBorderTopRightRadius },
+  "border-bottom-left-radius": { applyFn: applyBorderBottomLeftRadius },
+  "border-bottom-right-radius": { applyFn: applyBorderBottomRightRadius },
   "box-shadow": [
     { applyFn: applyDropShadow, parser: parseDropShadow },
     { applyFn: applyInnerShadow, parser: parseInnerShadow },
