@@ -728,10 +728,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/84a19a97-956c-49b6-b306-a0ca55633e63/loading-indicator.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/fc291524-1bfe-4b57-a449-c2a2e7fd9ff5/loading-indicator.module.js
   var loading_indicator_module_default;
   var init_loading_indicator_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/84a19a97-956c-49b6-b306-a0ca55633e63/loading-indicator.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/fc291524-1bfe-4b57-a449-c2a2e7fd9ff5/loading-indicator.module.js"() {
       if (document.getElementById("c891e05b54") === null) {
         const element = document.createElement("style");
         element.id = "c891e05b54";
@@ -792,10 +792,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/6472c67f-d931-476d-ada1-9a66f6b61d93/button.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/8e32f15e-5bb1-4b48-8e94-618b310f3c17/button.module.js
   var button_module_default;
   var init_button_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/6472c67f-d931-476d-ada1-9a66f6b61d93/button.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/8e32f15e-5bb1-4b48-8e94-618b310f3c17/button.module.js"() {
       if (document.getElementById("4cebeccae6") === null) {
         const element = document.createElement("style");
         element.id = "4cebeccae6";
@@ -1195,9 +1195,9 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c2a32421-5bc5-4b2b-8374-781a6f65b703/base.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/9c1c573d-7e52-461b-b06f-d5d0e1893fed/base.js
   var init_base = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c2a32421-5bc5-4b2b-8374-781a6f65b703/base.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/9c1c573d-7e52-461b-b06f-d5d0e1893fed/base.js"() {
       if (document.getElementById("cfec39da5a") === null) {
         const element = document.createElement("style");
         element.id = "cfec39da5a";
@@ -1326,9 +1326,9 @@ svg {
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/1001f98a-aaf3-4fba-ab5e-313bac27da65/output.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c2edf8e5-3407-4d9f-92b1-e8b63d41d405/output.js
   var init_output = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/1001f98a-aaf3-4fba-ab5e-313bac27da65/output.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c2edf8e5-3407-4d9f-92b1-e8b63d41d405/output.js"() {
       if (document.getElementById("d735de220f") === null) {
         const element = document.createElement("style");
         element.id = "d735de220f";
@@ -2440,10 +2440,22 @@ textarea {
       const newValue = event.currentTarget.value;
       setValue(newValue);
     }
+    const [timeoutId, setTimeoutId] = p2(null);
+    _(() => {
+      return () => {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+      };
+    }, [timeoutId]);
     function handleClick() {
       try {
         emit("APPLY_CSS", value);
         setMessage("Styles applied successfully!");
+        const id = setTimeout(() => {
+          setMessage("Apply Styles");
+        }, 1e3);
+        setTimeoutId(id);
       } catch (error) {
         setMessage("An error occurred while applying styles");
       }

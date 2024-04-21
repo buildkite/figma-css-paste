@@ -3524,20 +3524,51 @@ var init_shadow = __esm({
 });
 
 // src/utils/css/borderRadius.ts
-function applyBorderRadius(node, width) {
-  applyProperty(node, "cornerRadius", parseFloat(width));
+function parseBorderRadius(radius) {
+  const properties = radius.split(" ").filter((prop) => prop.trim() !== "");
+  const borderRadius = {
+    topLeftRadius: 0,
+    topRightRadius: 0,
+    bottomRightRadius: 0,
+    bottomLeftRadius: 0
+  };
+  switch (properties.length) {
+    case 1:
+      borderRadius.topLeftRadius = borderRadius.topRightRadius = borderRadius.bottomRightRadius = borderRadius.bottomLeftRadius = parseFloat(properties[0]);
+      break;
+    case 2:
+      borderRadius.topLeftRadius = borderRadius.bottomRightRadius = parseFloat(
+        properties[0]
+      );
+      borderRadius.topRightRadius = borderRadius.bottomLeftRadius = parseFloat(
+        properties[1]
+      );
+      break;
+    case 3:
+      borderRadius.topLeftRadius = parseFloat(properties[0]);
+      borderRadius.topRightRadius = borderRadius.bottomLeftRadius = parseFloat(
+        properties[1]
+      );
+      borderRadius.bottomRightRadius = parseFloat(properties[2]);
+      break;
+    case 4:
+      borderRadius.topLeftRadius = parseFloat(properties[0]);
+      borderRadius.topRightRadius = parseFloat(properties[1]);
+      borderRadius.bottomRightRadius = parseFloat(properties[2]);
+      borderRadius.bottomLeftRadius = parseFloat(properties[3]);
+      break;
+    default:
+      console.error("Invalid border radius value");
+      break;
+  }
+  return borderRadius;
 }
-function applyBorderTopLeftRadius(node, width) {
-  applyProperty(node, "topLeftRadius", parseFloat(width));
-}
-function applyBorderTopRightRadius(node, width) {
-  applyProperty(node, "topRightRadius", parseFloat(width));
-}
-function applyBorderBottomLeftRadius(node, width) {
-  applyProperty(node, "bottomLeftRadius", parseFloat(width));
-}
-function applyBorderBottomRightRadius(node, width) {
-  applyProperty(node, "bottomRightRadius", parseFloat(width));
+function applyBorderRadius(node, radius) {
+  const borderRadius = parseBorderRadius(radius);
+  applyProperty(node, "topLeftRadius", borderRadius.topLeftRadius);
+  applyProperty(node, "topRightRadius", borderRadius.topRightRadius);
+  applyProperty(node, "bottomLeftRadius", borderRadius.bottomLeftRadius);
+  applyProperty(node, "bottomRightRadius", borderRadius.bottomRightRadius);
 }
 var init_borderRadius = __esm({
   "src/utils/css/borderRadius.ts"() {
@@ -3599,10 +3630,10 @@ var init_main = __esm({
       "border-width": { applyFn: applyStrokeWidth },
       "border-style": { applyFn: applyStrokeStyle },
       "border-radius": { applyFn: applyBorderRadius },
-      "border-top-left-radius": { applyFn: applyBorderTopLeftRadius },
-      "border-top-right-radius": { applyFn: applyBorderTopRightRadius },
-      "border-bottom-left-radius": { applyFn: applyBorderBottomLeftRadius },
-      "border-bottom-right-radius": { applyFn: applyBorderBottomRightRadius },
+      "border-top-left-radius": { applyFn: applyBorderRadius },
+      "border-top-right-radius": { applyFn: applyBorderRadius },
+      "border-bottom-left-radius": { applyFn: applyBorderRadius },
+      "border-bottom-right-radius": { applyFn: applyBorderRadius },
       "box-shadow": [
         { applyFn: applyDropShadow, parser: parseDropShadow },
         { applyFn: applyInnerShadow, parser: parseInnerShadow }
@@ -3615,7 +3646,6 @@ var init_main = __esm({
       // line-height
       // letter-spacing
       // text-align
-      // color
       // text-decoration
       // background-image (gradients, images)
       // text-shadow
@@ -3630,7 +3660,7 @@ var init_main = __esm({
       // filter: blur (layer blur)
       // backdrop-filter? (background blur)
       // background-blend-mode (layer blend mode)
-      // border-radius
+      // overflow-hidden? clip?
     };
   }
 });

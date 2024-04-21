@@ -48,10 +48,10 @@ const stylerFunctions: { [key: string]: any } = {
   "border-width": { applyFn: applyBorderWidth },
   "border-style": { applyFn: applyBorderStyle },
   "border-radius": { applyFn: applyBorderRadius },
-  "border-top-left-radius": { applyFn: applyBorderTopLeftRadius },
-  "border-top-right-radius": { applyFn: applyBorderTopRightRadius },
-  "border-bottom-left-radius": { applyFn: applyBorderBottomLeftRadius },
-  "border-bottom-right-radius": { applyFn: applyBorderBottomRightRadius },
+  "border-top-left-radius": { applyFn: applyBorderRadius },
+  "border-top-right-radius": { applyFn: applyBorderRadius },
+  "border-bottom-left-radius": { applyFn: applyBorderRadius },
+  "border-bottom-right-radius": { applyFn: applyBorderRadius },
   "box-shadow": [
     { applyFn: applyDropShadow, parser: parseDropShadow },
     { applyFn: applyInnerShadow, parser: parseInnerShadow },
@@ -64,7 +64,6 @@ const stylerFunctions: { [key: string]: any } = {
   // line-height
   // letter-spacing
   // text-align
-  // color
   // text-decoration
   // background-image (gradients, images)
   // text-shadow
@@ -79,7 +78,7 @@ const stylerFunctions: { [key: string]: any } = {
   // filter: blur (layer blur)
   // backdrop-filter? (background blur)
   // background-blend-mode (layer blend mode)
-  // border-radius
+  // overflow-hidden? clip?
 };
 
 export default function () {

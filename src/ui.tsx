@@ -2,7 +2,7 @@ import { render, useWindowResize, Button } from "@create-figma-plugin/ui";
 import { JSX, h } from "preact";
 import "!./output.css";
 import { emit } from "@create-figma-plugin/utilities";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { parseCss } from "./utils/extractStyles";
 
 function Plugin() {
@@ -38,10 +38,25 @@ function Plugin() {
     setValue(newValue);
   }
 
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [timeoutId]);
+
   function handleClick() {
     try {
       emit("APPLY_CSS", value);
       setMessage("Styles applied successfully!");
+
+      const id = setTimeout(() => {
+        setMessage("Apply Styles");
+      }, 1000);
+      setTimeoutId(id);
     } catch (error) {
       setMessage("An error occurred while applying styles");
     }
