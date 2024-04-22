@@ -3699,38 +3699,6 @@ var init_main = __esm({
         applyFn: applyTextDecoration,
         parser: parseTextDecoration
       }
-      // Todo
-      // font-family
-      // font-weight
-      // font-size
-      // font-style
-      // line-height
-      // letter-spacing
-      // text-align (vertical and horizontal)
-      // text-decoration
-      // text case
-      // text list options
-      // text gradient (convert text clip, background gradient, etc
-      // text blend mode
-      // paragraph spacing
-      // truncate
-      // background-image (gradients, images)
-      // text-shadow
-      // opacity
-      // padding
-      // height
-      // width
-      // rotation
-      // flex
-      // flex-direction
-      // algin-items
-      // justify-content
-      // flex-wrap
-      // flex-grow
-      // filter: blur (layer blur)
-      // backdrop-filter? (background blur)
-      // background-blend-mode (layer blend mode)
-      // overflow-hidden? clip?
     };
   }
 });
