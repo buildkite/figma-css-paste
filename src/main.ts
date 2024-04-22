@@ -24,13 +24,11 @@ import {
   parseDropShadow,
   parseInnerShadow,
 } from "./utils/css/shadow";
+import { applyBorderRadius } from "./utils/css/borderRadius";
 import {
-  applyBorderBottomLeftRadius,
-  applyBorderBottomRightRadius,
-  applyBorderRadius,
-  applyBorderTopLeftRadius,
-  applyBorderTopRightRadius,
-} from "./utils/css/borderRadius";
+  applyTextDecoration,
+  parseTextDecoration,
+} from "./utils/css/textDecoration";
 
 const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
@@ -56,6 +54,10 @@ const stylerFunctions: { [key: string]: any } = {
     { applyFn: applyDropShadow, parser: parseDropShadow },
     { applyFn: applyInnerShadow, parser: parseInnerShadow },
   ],
+  "text-decoration": {
+    applyFn: applyTextDecoration,
+    parser: parseTextDecoration,
+  },
   // Todo
   // font-family
   // font-weight
@@ -63,12 +65,21 @@ const stylerFunctions: { [key: string]: any } = {
   // font-style
   // line-height
   // letter-spacing
-  // text-align
+  // text-align (vertical and horizontal)
   // text-decoration
+  // text case
+  // text list options
+  // text gradient (convert text clip, background gradient, etc
+  // text blend mode
+  // paragraph spacing
+  // truncate
   // background-image (gradients, images)
   // text-shadow
   // opacity
-  // pading
+  // padding
+  // height
+  // width
+  // rotation
   // flex
   // flex-direction
   // algin-items

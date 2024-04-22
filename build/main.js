@@ -3577,6 +3577,63 @@ var init_borderRadius = __esm({
   }
 });
 
+// src/utils/css/textDecoration.ts
+async function applyTextDecoration(node, decoration) {
+  if (node.type === "TEXT") {
+    try {
+      await figma.loadFontAsync(node.fontName);
+      node.textDecoration = "NONE";
+      switch (decoration) {
+        case "UNDERLINE":
+          node.textDecoration = "UNDERLINE";
+          break;
+        case "STRIKETHROUGH":
+          node.textDecoration = "STRIKETHROUGH";
+          break;
+        default:
+          break;
+      }
+    } catch (e) {
+      console.error(`Failed to load font: ${e}`);
+    }
+  } else if ("children" in node) {
+    node.findAll((childNode) => childNode.type === "TEXT").forEach(async (textNode) => {
+      try {
+        await figma.loadFontAsync(textNode.fontName);
+        textNode.textDecoration = "NONE";
+        switch (decoration) {
+          case "UNDERLINE":
+            textNode.textDecoration = "UNDERLINE";
+            break;
+          case "STRIKETHROUGH":
+            textNode.textDecoration = "STRIKETHROUGH";
+            break;
+          default:
+            break;
+        }
+      } catch (e) {
+        console.error(`Failed to load font`);
+      }
+    });
+  }
+}
+function parseTextDecoration(decoration) {
+  switch (decoration) {
+    case "underline":
+      return "UNDERLINE";
+    case "line-through":
+      return "STRIKETHROUGH";
+    case "none":
+    default:
+      return "NONE";
+  }
+}
+var init_textDecoration = __esm({
+  "src/utils/css/textDecoration.ts"() {
+    "use strict";
+  }
+});
+
 // src/main.ts
 var main_exports = {};
 __export(main_exports, {
@@ -3613,6 +3670,7 @@ var init_main = __esm({
     init_applyStyles();
     init_shadow();
     init_borderRadius();
+    init_textDecoration();
     stylerFunctions = {
       color: { applyFn: applyTextColor },
       "background-color": { applyFn: applyBackgroundColor },
@@ -3637,7 +3695,11 @@ var init_main = __esm({
       "box-shadow": [
         { applyFn: applyDropShadow, parser: parseDropShadow },
         { applyFn: applyInnerShadow, parser: parseInnerShadow }
-      ]
+      ],
+      "text-decoration": {
+        applyFn: applyTextDecoration,
+        parser: parseTextDecoration
+      }
       // Todo
       // font-family
       // font-weight
@@ -3645,12 +3707,21 @@ var init_main = __esm({
       // font-style
       // line-height
       // letter-spacing
-      // text-align
+      // text-align (vertical and horizontal)
       // text-decoration
+      // text case
+      // text list options
+      // text gradient (convert text clip, background gradient, etc
+      // text blend mode
+      // paragraph spacing
+      // truncate
       // background-image (gradients, images)
       // text-shadow
       // opacity
-      // pading
+      // padding
+      // height
+      // width
+      // rotation
       // flex
       // flex-direction
       // algin-items

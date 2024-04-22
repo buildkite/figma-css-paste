@@ -43,10 +43,12 @@ declare const styles: {
   readonly "hover:ring-figma-gray-light": string;
   readonly "left-0": string;
   readonly "left-4": string;
+  readonly "line-through": string;
   readonly "no-underline": string;
   readonly "opacity-30": string;
   readonly "outline-none": string;
   readonly "overflow-scroll": string;
+  readonly "overline": string;
   readonly "p-2": string;
   readonly "p-4": string;
   readonly "placeholder:text-gray-500": string;
@@ -89,6 +91,7 @@ declare const styles: {
   readonly "text-transparent": string;
   readonly "text-white": string;
   readonly "top-0": string;
+  readonly "truncate": string;
   readonly "underline": string;
   readonly "visible": string;
   readonly "w-auto": string;

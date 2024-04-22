@@ -678,6 +678,12 @@ video {
   overflow: scroll;
 }
 
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .rounded-md {
   border-radius: 0.375rem;
 }
@@ -816,6 +822,14 @@ video {
 
 .underline {
   text-decoration-line: underline;
+}
+
+.overline {
+  text-decoration-line: overline;
+}
+
+.line-through {
+  text-decoration-line: line-through;
 }
 
 .no-underline {

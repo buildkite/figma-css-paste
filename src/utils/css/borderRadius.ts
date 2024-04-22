@@ -1,4 +1,5 @@
 import { applyProperty } from "../applyStyles";
+
 type BorderRadius = {
   topLeftRadius: number;
   topRightRadius: number;
