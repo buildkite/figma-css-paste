@@ -3577,7 +3577,7 @@ var init_borderRadius = __esm({
   }
 });
 
-// src/utils/css/textDecoration.ts
+// src/utils/css/typography/textDecoration.ts
 async function applyTextDecoration(node, decoration) {
   if (node.type === "TEXT") {
     try {
@@ -3629,7 +3629,7 @@ function parseTextDecoration(decoration) {
   }
 }
 var init_textDecoration = __esm({
-  "src/utils/css/textDecoration.ts"() {
+  "src/utils/css/typography/textDecoration.ts"() {
     "use strict";
   }
 });
@@ -3675,7 +3675,6 @@ var init_main = __esm({
       color: { applyFn: applyTextColor },
       "background-color": { applyFn: applyBackgroundColor },
       border: { applyFn: applyBorderShorthand, parser: parseBorderProperty },
-      // test for separate borders
       "border-top-width": { applyFn: applyTopStrokeWidth },
       "border-right-width": { applyFn: applyRightStrokeWidth },
       "border-bottom-width": { applyFn: applyBottomStrokeWidth },

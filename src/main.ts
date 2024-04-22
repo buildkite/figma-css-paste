@@ -28,12 +28,12 @@ import { applyBorderRadius } from "./utils/css/borderRadius";
 import {
   applyTextDecoration,
   parseTextDecoration,
-} from "./utils/css/textDecoration";
+} from "./utils/css/typography/textDecoration";
 
 const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
   "background-color": { applyFn: applyBackgroundColor },
-  border: { applyFn: applyBorderShorthand, parser: parseBorderProperty }, // test for separate borders
+  border: { applyFn: applyBorderShorthand, parser: parseBorderProperty },
   "border-top-width": { applyFn: applyTopStrokeWidth },
   "border-right-width": { applyFn: applyRightStrokeWidth },
   "border-bottom-width": { applyFn: applyBottomStrokeWidth },
