@@ -12,6 +12,7 @@ declare const styles: {
   readonly "border": string;
   readonly "bottom-4": string;
   readonly "bottom-6": string;
+  readonly "capitalize": string;
   readonly "cursor-text": string;
   readonly "filter": string;
   readonly "flex": string;
@@ -45,6 +46,7 @@ declare const styles: {
   readonly "left-0": string;
   readonly "left-4": string;
   readonly "line-through": string;
+  readonly "lowercase": string;
   readonly "no-underline": string;
   readonly "opacity-30": string;
   readonly "outline-none": string;
@@ -94,6 +96,7 @@ declare const styles: {
   readonly "top-0": string;
   readonly "truncate": string;
   readonly "underline": string;
+  readonly "uppercase": string;
   readonly "visible": string;
   readonly "w-auto": string;
   readonly "w-full": string;

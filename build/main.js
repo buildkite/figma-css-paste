@@ -3634,6 +3634,37 @@ var init_textDecoration = __esm({
   }
 });
 
+// src/utils/css/typography/textTransform.ts
+async function applyTextTransform(node, textTransform) {
+  if (node.type === "TEXT") {
+    try {
+      await figma.loadFontAsync(node.fontName);
+      let figmaTextCase;
+      switch (textTransform) {
+        case "uppercase":
+          figmaTextCase = "UPPER";
+          break;
+        case "lowercase":
+          figmaTextCase = "LOWER";
+          break;
+        case "capitalize":
+          figmaTextCase = "TITLE";
+          break;
+        default:
+          figmaTextCase = "ORIGINAL";
+      }
+      node.textCase = figmaTextCase;
+    } catch (e) {
+      console.error(`Failed to load font: ${e}`);
+    }
+  }
+}
+var init_textTransform = __esm({
+  "src/utils/css/typography/textTransform.ts"() {
+    "use strict";
+  }
+});
+
 // src/utils/css/rotate.ts
 function applyRotate(node, rotation) {
   const degree = parseFloat(rotation.replace("deg", ""));
@@ -3733,6 +3764,7 @@ var init_main = __esm({
     init_shadow();
     init_borderRadius();
     init_textDecoration();
+    init_textTransform();
     init_rotate();
     init_width();
     init_height();
@@ -3766,6 +3798,7 @@ var init_main = __esm({
         applyFn: applyTextDecoration,
         parser: parseTextDecoration
       },
+      "text-transform": { applyFn: applyTextTransform },
       rotate: { applyFn: applyRotate },
       opacity: { applyFn: applyOpacity },
       overflow: { applyFn: applyOverflow },
