@@ -36,6 +36,7 @@ import { applyHeight } from "./utils/css/height";
 import { applyOverflow } from "./utils/css/overflow";
 import { applyOpacity } from "./utils/css/opacity";
 import { applyBlur } from "./utils/css/blur";
+import { applyBackgroundBlur } from "./utils/css/backgroundBlur";
 
 const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
@@ -66,6 +67,7 @@ const stylerFunctions: { [key: string]: any } = {
     parser: parseTextDecoration,
   },
   "text-transform": { applyFn: applyTextTransform },
+  "backdrop-filter": { applyFn: applyBackgroundBlur },
   filter: { applyFn: applyBlur },
   rotate: { applyFn: applyRotate },
   opacity: { applyFn: applyOpacity },

@@ -1,5 +1,6 @@
 declare const styles: {
   readonly "absolute": string;
+  readonly "backdrop-filter": string;
   readonly "bg-[#222436]": string;
   readonly "bg-[#2C2C2C]": string;
   readonly "bg-figma-gray-light": string;
