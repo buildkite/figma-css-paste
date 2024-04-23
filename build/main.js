@@ -3634,6 +3634,28 @@ var init_textDecoration = __esm({
   }
 });
 
+// src/utils/css/width.ts
+function applyWidth(node, width) {
+  const widthToApply = parseFloat(width);
+  node.resize(widthToApply, node.height);
+}
+var init_width = __esm({
+  "src/utils/css/width.ts"() {
+    "use strict";
+  }
+});
+
+// src/utils/css/height.ts
+function applyHeight(node, height) {
+  const heightToApply = parseFloat(height);
+  node.resize(node.width, heightToApply);
+}
+var init_height = __esm({
+  "src/utils/css/height.ts"() {
+    "use strict";
+  }
+});
+
 // src/main.ts
 var main_exports = {};
 __export(main_exports, {
@@ -3671,6 +3693,8 @@ var init_main = __esm({
     init_shadow();
     init_borderRadius();
     init_textDecoration();
+    init_width();
+    init_height();
     stylerFunctions = {
       color: { applyFn: applyTextColor },
       "background-color": { applyFn: applyBackgroundColor },
@@ -3698,7 +3722,9 @@ var init_main = __esm({
       "text-decoration": {
         applyFn: applyTextDecoration,
         parser: parseTextDecoration
-      }
+      },
+      width: { applyFn: applyWidth },
+      height: { applyFn: applyHeight }
     };
   }
 });

@@ -29,6 +29,8 @@ import {
   applyTextDecoration,
   parseTextDecoration,
 } from "./utils/css/typography/textDecoration";
+import { applyWidth } from "./utils/css/width";
+import { applyHeight } from "./utils/css/height";
 
 const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
@@ -58,6 +60,8 @@ const stylerFunctions: { [key: string]: any } = {
     applyFn: applyTextDecoration,
     parser: parseTextDecoration,
   },
+  width: { applyFn: applyWidth },
+  height: { applyFn: applyHeight },
 };
 
 export default function () {
