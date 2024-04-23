@@ -35,8 +35,9 @@ import { applyWidth } from "./utils/css/width";
 import { applyHeight } from "./utils/css/height";
 import { applyOverflow } from "./utils/css/overflow";
 import { applyOpacity } from "./utils/css/opacity";
-import { applyBlur } from "./utils/css/blur";
-import { applyBackgroundBlur } from "./utils/css/backgroundBlur";
+import { applyFilterBlur } from "./utils/css/blur";
+import { applyBgFilterBlur } from "./utils/css/backgroundBlur";
+import { applyMixBlendMode, parseMixBlendMode } from "./utils/css/blendMode";
 
 const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
@@ -62,13 +63,16 @@ const stylerFunctions: { [key: string]: any } = {
     { applyFn: applyDropShadow, parser: parseDropShadow },
     { applyFn: applyInnerShadow, parser: parseInnerShadow },
   ],
+  "mix-blend-mode": {
+    applyFn: applyMixBlendMode,
+  },
   "text-decoration": {
     applyFn: applyTextDecoration,
     parser: parseTextDecoration,
   },
   "text-transform": { applyFn: applyTextTransform },
-  "backdrop-filter": { applyFn: applyBackgroundBlur },
-  filter: { applyFn: applyBlur },
+  filter: { applyFn: applyFilterBlur },
+  "backdrop-filter": { applyFn: applyBgFilterBlur },
   rotate: { applyFn: applyRotate },
   opacity: { applyFn: applyOpacity },
   overflow: { applyFn: applyOverflow },
@@ -88,15 +92,17 @@ export default function () {
 
   on("APPLY_CSS", (css: string) => {
     Object.entries(stylerFunctions).forEach(([property, value]) => {
-      if (Array.isArray(value)) {
-        // Multiple functions for the property
-        value.forEach(({ applyFn, parser }) => {
+      // should contain property itself
+      const regex = new RegExp(`\\b${property}\\s*:`, "g");
+      if (regex.test(css)) {
+        if (Array.isArray(value)) {
+          value.forEach(({ applyFn, parser }) => {
+            applyStylerToSelection(css, property, applyFn, parser);
+          });
+        } else {
+          const { applyFn, parser } = value;
           applyStylerToSelection(css, property, applyFn, parser);
-        });
-      } else {
-        // Single function for the property
-        const { applyFn, parser } = value;
-        applyStylerToSelection(css, property, applyFn, parser);
+        }
       }
     });
   });

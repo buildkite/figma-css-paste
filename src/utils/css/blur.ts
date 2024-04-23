@@ -1,4 +1,4 @@
-export function applyBlur(node: any, blur: string) {
+export function applyFilterBlur(node: any, blur: string) {
   // extract the blur value between parentheses
   const matches = blur.match(/blur\((.*?)px\)/);
   let blurValue;
@@ -20,12 +20,17 @@ export function applyBlur(node: any, blur: string) {
     throw new Error("Blur value must be 0 or greater");
   }
 
-  node.effects = [
-    ...node.effects,
-    {
-      type: "LAYER_BLUR",
-      radius: blurValue,
-      visible: true,
-    },
-  ];
+  // Remove background blur effect
+  let newEffects = node.effects.filter(
+    (effect) => effect.type !== "BACKGROUND_BLUR"
+  );
+
+  // Add the filter (layer) blur effect
+  newEffects.push({
+    type: "LAYER_BLUR",
+    radius: blurValue,
+    visible: true,
+  });
+
+  node.effects = newEffects;
 }

@@ -3291,8 +3291,8 @@ var init_background = __esm({
 
 // src/utils/extractStyles.ts
 function extractCSSProperty(css, property) {
-  const regex = new RegExp(`${property}:\\s*(.*?)\\s*;`);
-  const match = css.match(regex);
+  const regex = new RegExp(`\\b${property}\\s*:\\s*(.*?)\\s*;`, "g");
+  const match = regex.exec(css);
   return match ? match[1] : null;
 }
 var init_extractStyles = __esm({
@@ -3728,7 +3728,7 @@ var init_opacity = __esm({
 });
 
 // src/utils/css/blur.ts
-function applyBlur(node, blur) {
+function applyFilterBlur(node, blur) {
   const matches = blur.match(/blur\((.*?)px\)/);
   let blurValue;
   if (matches) {
@@ -3744,14 +3744,15 @@ function applyBlur(node, blur) {
   } else if (blurValue < 0) {
     throw new Error("Blur value must be 0 or greater");
   }
-  node.effects = [
-    ...node.effects,
-    {
-      type: "LAYER_BLUR",
-      radius: blurValue,
-      visible: true
-    }
-  ];
+  let newEffects = node.effects.filter(
+    (effect) => effect.type !== "BACKGROUND_BLUR"
+  );
+  newEffects.push({
+    type: "LAYER_BLUR",
+    radius: blurValue,
+    visible: true
+  });
+  node.effects = newEffects;
 }
 var init_blur = __esm({
   "src/utils/css/blur.ts"() {
@@ -3760,8 +3761,8 @@ var init_blur = __esm({
 });
 
 // src/utils/css/backgroundBlur.ts
-function applyBackgroundBlur(node, backdropBlur) {
-  const matches = backdropBlur.match(/blur\((.*?)px\)/);
+function applyBgFilterBlur(node, blur) {
+  const matches = blur.match(/blur\((.*?)px\)/);
   let blurValue;
   if (matches) {
     blurValue = parseFloat(matches[1]);
@@ -3776,17 +3777,58 @@ function applyBackgroundBlur(node, backdropBlur) {
   } else if (blurValue < 0) {
     throw new Error("Blur value must be 0 or greater");
   }
-  node.effects = [
-    ...node.effects,
-    {
-      type: "BACKGROUND_BLUR",
-      radius: blurValue,
-      visible: true
-    }
-  ];
+  let newEffects = node.effects.filter(
+    (effect) => effect.type !== "LAYER_BLUR"
+  );
+  newEffects.push({
+    type: "BACKGROUND_BLUR",
+    radius: blurValue,
+    visible: true
+  });
+  node.effects = newEffects;
 }
 var init_backgroundBlur = __esm({
   "src/utils/css/backgroundBlur.ts"() {
+    "use strict";
+  }
+});
+
+// src/utils/css/blendMode.ts
+function applyMixBlendMode(node, blendMode) {
+  const allowedBlendModes = [
+    "PASS_THROUGH",
+    "NORMAL",
+    "DARKEN",
+    "MULTIPLY",
+    "LINEAR_BURN",
+    "COLOR_BURN",
+    "LIGHTEN",
+    "SCREEN",
+    "LINEAR_DODGE",
+    "COLOR_DODGE",
+    "OVERLAY",
+    "SOFT_LIGHT",
+    "HARD_LIGHT",
+    "DIFFERENCE",
+    "EXCLUSION",
+    "HUE",
+    "SATURATION",
+    "COLOR",
+    "LUMINOSITY"
+  ];
+  if (!blendMode) {
+    console.error("No blend mode provided");
+    return;
+  }
+  let upperCaseBlendMode = blendMode.toUpperCase();
+  if (allowedBlendModes.includes(upperCaseBlendMode)) {
+    node.blendMode = upperCaseBlendMode;
+  } else {
+    console.error(`Invalid blend mode: ${blendMode}`);
+  }
+}
+var init_blendMode = __esm({
+  "src/utils/css/blendMode.ts"() {
     "use strict";
   }
 });
@@ -3804,13 +3846,16 @@ function main_default() {
   });
   on("APPLY_CSS", (css) => {
     Object.entries(stylerFunctions).forEach(([property, value]) => {
-      if (Array.isArray(value)) {
-        value.forEach(({ applyFn, parser }) => {
+      const regex = new RegExp(`\\b${property}\\s*:`, "g");
+      if (regex.test(css)) {
+        if (Array.isArray(value)) {
+          value.forEach(({ applyFn, parser }) => {
+            applyStylerToSelection(css, property, applyFn, parser);
+          });
+        } else {
+          const { applyFn, parser } = value;
           applyStylerToSelection(css, property, applyFn, parser);
-        });
-      } else {
-        const { applyFn, parser } = value;
-        applyStylerToSelection(css, property, applyFn, parser);
+        }
       }
     });
   });
@@ -3836,6 +3881,7 @@ var init_main = __esm({
     init_opacity();
     init_blur();
     init_backgroundBlur();
+    init_blendMode();
     stylerFunctions = {
       color: { applyFn: applyTextColor },
       "background-color": { applyFn: applyBackgroundColor },
@@ -3860,13 +3906,16 @@ var init_main = __esm({
         { applyFn: applyDropShadow, parser: parseDropShadow },
         { applyFn: applyInnerShadow, parser: parseInnerShadow }
       ],
+      "mix-blend-mode": {
+        applyFn: applyMixBlendMode
+      },
       "text-decoration": {
         applyFn: applyTextDecoration,
         parser: parseTextDecoration
       },
       "text-transform": { applyFn: applyTextTransform },
-      "backdrop-filter": { applyFn: applyBackgroundBlur },
-      filter: { applyFn: applyBlur },
+      filter: { applyFn: applyFilterBlur },
+      "backdrop-filter": { applyFn: applyBgFilterBlur },
       rotate: { applyFn: applyRotate },
       opacity: { applyFn: applyOpacity },
       overflow: { applyFn: applyOverflow },

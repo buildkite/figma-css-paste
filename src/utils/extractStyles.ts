@@ -1,6 +1,6 @@
 export function extractCSSProperty(css: string, property: string) {
-  const regex = new RegExp(`${property}:\\s*(.*?)\\s*;`);
-  const match = css.match(regex);
+  const regex = new RegExp(`\\b${property}\\s*:\\s*(.*?)\\s*;`, "g");
+  const match = regex.exec(css);
   return match ? match[1] : null;
 }
 
