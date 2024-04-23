@@ -3634,6 +3634,17 @@ var init_textDecoration = __esm({
   }
 });
 
+// src/utils/css/rotate.ts
+function applyRotate(node, rotation) {
+  const degree = parseFloat(rotation.replace("deg", ""));
+  node.rotation = degree;
+}
+var init_rotate = __esm({
+  "src/utils/css/rotate.ts"() {
+    "use strict";
+  }
+});
+
 // src/utils/css/width.ts
 function applyWidth(node, width) {
   const widthToApply = parseFloat(width);
@@ -3707,6 +3718,7 @@ var init_main = __esm({
     init_shadow();
     init_borderRadius();
     init_textDecoration();
+    init_rotate();
     init_width();
     init_height();
     init_overflow();
@@ -3738,6 +3750,7 @@ var init_main = __esm({
         applyFn: applyTextDecoration,
         parser: parseTextDecoration
       },
+      rotate: { applyFn: applyRotate },
       overflow: { applyFn: applyOverflow },
       "overflow-y": { applyFn: applyOverflow },
       "overflow-x": { applyFn: applyOverflow },

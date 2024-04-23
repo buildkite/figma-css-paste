@@ -29,6 +29,7 @@ import {
   applyTextDecoration,
   parseTextDecoration,
 } from "./utils/css/typography/textDecoration";
+import { applyRotate } from "./utils/css/rotate";
 import { applyWidth } from "./utils/css/width";
 import { applyHeight } from "./utils/css/height";
 import { applyOverflow } from "./utils/css/overflow";
@@ -61,6 +62,7 @@ const stylerFunctions: { [key: string]: any } = {
     applyFn: applyTextDecoration,
     parser: parseTextDecoration,
   },
+  rotate: { applyFn: applyRotate },
   overflow: { applyFn: applyOverflow },
   "overflow-y": { applyFn: applyOverflow },
   "overflow-x": { applyFn: applyOverflow },
