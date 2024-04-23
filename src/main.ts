@@ -37,7 +37,17 @@ import { applyOverflow } from "./utils/css/overflow";
 import { applyOpacity } from "./utils/css/opacity";
 import { applyFilterBlur } from "./utils/css/blur";
 import { applyBgFilterBlur } from "./utils/css/backgroundBlur";
-import { applyMixBlendMode, parseMixBlendMode } from "./utils/css/blendMode";
+import { applyMixBlendMode } from "./utils/css/blendMode";
+import {
+  applyAlignItems,
+  applyFlex,
+  applyFlexDirection,
+  applyFlexGrow,
+  applyFlexWrap,
+  applyGap,
+  applyJustifyContent,
+} from "./utils/css/flex";
+import { applyPadding, parsePadding } from "./utils/css/padding";
 
 const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
@@ -71,6 +81,14 @@ const stylerFunctions: { [key: string]: any } = {
     parser: parseTextDecoration,
   },
   "text-transform": { applyFn: applyTextTransform },
+  display: { applyFn: applyFlex },
+  "flex-direction": { applyFn: applyFlexDirection },
+  "justify-content": { applyFn: applyJustifyContent },
+  "align-items": { applyFn: applyAlignItems },
+  "flex-wrap": { applyFn: applyFlexWrap },
+  "flex-grow": { applyFn: applyFlexGrow },
+  gap: { applyFn: applyGap },
+  padding: { applyFn: applyPadding, parser: parsePadding },
   filter: { applyFn: applyFilterBlur },
   "backdrop-filter": { applyFn: applyBgFilterBlur },
   rotate: { applyFn: applyRotate },
