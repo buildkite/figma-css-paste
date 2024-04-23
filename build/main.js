@@ -3656,6 +3656,20 @@ var init_height = __esm({
   }
 });
 
+// src/utils/css/overflow.ts
+function applyOverflow(node, overflow) {
+  if (overflow === "hidden") {
+    node.clipsContent = true;
+  } else {
+    node.clipsContent = false;
+  }
+}
+var init_overflow = __esm({
+  "src/utils/css/overflow.ts"() {
+    "use strict";
+  }
+});
+
 // src/main.ts
 var main_exports = {};
 __export(main_exports, {
@@ -3695,6 +3709,7 @@ var init_main = __esm({
     init_textDecoration();
     init_width();
     init_height();
+    init_overflow();
     stylerFunctions = {
       color: { applyFn: applyTextColor },
       "background-color": { applyFn: applyBackgroundColor },
@@ -3723,6 +3738,9 @@ var init_main = __esm({
         applyFn: applyTextDecoration,
         parser: parseTextDecoration
       },
+      overflow: { applyFn: applyOverflow },
+      "overflow-y": { applyFn: applyOverflow },
+      "overflow-x": { applyFn: applyOverflow },
       width: { applyFn: applyWidth },
       height: { applyFn: applyHeight }
     };

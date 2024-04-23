@@ -31,6 +31,7 @@ import {
 } from "./utils/css/typography/textDecoration";
 import { applyWidth } from "./utils/css/width";
 import { applyHeight } from "./utils/css/height";
+import { applyOverflow } from "./utils/css/overflow";
 
 const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
@@ -60,6 +61,9 @@ const stylerFunctions: { [key: string]: any } = {
     applyFn: applyTextDecoration,
     parser: parseTextDecoration,
   },
+  overflow: { applyFn: applyOverflow },
+  "overflow-y": { applyFn: applyOverflow },
+  "overflow-x": { applyFn: applyOverflow },
   width: { applyFn: applyWidth },
   height: { applyFn: applyHeight },
 };

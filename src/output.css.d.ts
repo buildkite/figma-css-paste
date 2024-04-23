@@ -37,6 +37,7 @@ declare const styles: {
   readonly "h-auto": string;
   readonly "h-fit": string;
   readonly "h-full": string;
+  readonly "hidden": string;
   readonly "hover:bg-figma-gray-light": string;
   readonly "hover:ring-1": string;
   readonly "hover:ring-figma-gray": string;

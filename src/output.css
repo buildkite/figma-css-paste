@@ -598,6 +598,10 @@ video {
   display: flex;
 }
 
+.hidden {
+  display: none;
+}
+
 .h-96 {
   height: 24rem;
 }
