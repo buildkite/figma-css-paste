@@ -3727,6 +3727,38 @@ var init_opacity = __esm({
   }
 });
 
+// src/utils/css/blur.ts
+function applyBlur(node, blur) {
+  const matches = blur.match(/blur\((.*?)px\)/);
+  let blurValue;
+  if (matches) {
+    blurValue = parseFloat(matches[1]);
+  } else {
+    throw new Error("Invalid blur value");
+  }
+  if (isNaN(blurValue)) {
+    throw new Error("Blur value is not a number");
+  }
+  if (blurValue > 100) {
+    blurValue = 100;
+  } else if (blurValue < 0) {
+    throw new Error("Blur value must be 0 or greater");
+  }
+  node.effects = [
+    ...node.effects,
+    {
+      type: "LAYER_BLUR",
+      radius: blurValue,
+      visible: true
+    }
+  ];
+}
+var init_blur = __esm({
+  "src/utils/css/blur.ts"() {
+    "use strict";
+  }
+});
+
 // src/main.ts
 var main_exports = {};
 __export(main_exports, {
@@ -3770,6 +3802,7 @@ var init_main = __esm({
     init_height();
     init_overflow();
     init_opacity();
+    init_blur();
     stylerFunctions = {
       color: { applyFn: applyTextColor },
       "background-color": { applyFn: applyBackgroundColor },
@@ -3799,6 +3832,7 @@ var init_main = __esm({
         parser: parseTextDecoration
       },
       "text-transform": { applyFn: applyTextTransform },
+      filter: { applyFn: applyBlur },
       rotate: { applyFn: applyRotate },
       opacity: { applyFn: applyOpacity },
       overflow: { applyFn: applyOverflow },
