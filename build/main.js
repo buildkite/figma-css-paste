@@ -3681,6 +3681,21 @@ var init_overflow = __esm({
   }
 });
 
+// src/utils/css/opacity.ts
+function applyOpacity(node, opacity) {
+  const opacityToApply = parseFloat(opacity);
+  if (opacityToApply >= 0 && opacityToApply <= 1) {
+    node.opacity = opacityToApply;
+  } else {
+    throw new Error("Opacity must be a value between 0 and 1");
+  }
+}
+var init_opacity = __esm({
+  "src/utils/css/opacity.ts"() {
+    "use strict";
+  }
+});
+
 // src/main.ts
 var main_exports = {};
 __export(main_exports, {
@@ -3722,6 +3737,7 @@ var init_main = __esm({
     init_width();
     init_height();
     init_overflow();
+    init_opacity();
     stylerFunctions = {
       color: { applyFn: applyTextColor },
       "background-color": { applyFn: applyBackgroundColor },
@@ -3751,6 +3767,7 @@ var init_main = __esm({
         parser: parseTextDecoration
       },
       rotate: { applyFn: applyRotate },
+      opacity: { applyFn: applyOpacity },
       overflow: { applyFn: applyOverflow },
       "overflow-y": { applyFn: applyOverflow },
       "overflow-x": { applyFn: applyOverflow },

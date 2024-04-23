@@ -33,6 +33,7 @@ import { applyRotate } from "./utils/css/rotate";
 import { applyWidth } from "./utils/css/width";
 import { applyHeight } from "./utils/css/height";
 import { applyOverflow } from "./utils/css/overflow";
+import { applyOpacity } from "./utils/css/opacity";
 
 const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
@@ -63,6 +64,7 @@ const stylerFunctions: { [key: string]: any } = {
     parser: parseTextDecoration,
   },
   rotate: { applyFn: applyRotate },
+  opacity: { applyFn: applyOpacity },
   overflow: { applyFn: applyOverflow },
   "overflow-y": { applyFn: applyOverflow },
   "overflow-x": { applyFn: applyOverflow },
