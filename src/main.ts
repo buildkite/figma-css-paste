@@ -48,6 +48,7 @@ import {
   applyJustifyContent,
 } from "./utils/css/flex";
 import { applyPadding, parsePadding } from "./utils/css/padding";
+import { applyTextShadow, parseTextShadow } from "./utils/css/textShadow";
 
 const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
@@ -73,6 +74,10 @@ const stylerFunctions: { [key: string]: any } = {
     { applyFn: applyDropShadow, parser: parseDropShadow },
     { applyFn: applyInnerShadow, parser: parseInnerShadow },
   ],
+  "text-shadow": [{ applyFn: applyTextShadow, parser: parseTextShadow }],
+  "background-blend-mode": {
+    applyFn: applyMixBlendMode,
+  },
   "mix-blend-mode": {
     applyFn: applyMixBlendMode,
   },
