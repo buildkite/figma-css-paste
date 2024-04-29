@@ -3523,15 +3523,10 @@ function parseLinearGradient(type, nodes) {
 }
 function parseRadialGradient(type, nodes) {
   console.log("Received nodes for Radial gradient:", nodes);
-  let result = {
-    type,
-    endingShape: "ellipse",
-    // default
-    size: "farthest-corner",
-    // default
-    position: "center"
-    // default
-  };
+  let endingShape = "ellipse";
+  let size = "farthest-corner";
+  let colorStops = [];
+  let position = "center";
   let hasOptionalArgs = false;
   const firstArgSet = nodes.shift() || [];
   for (let i = 0; i < firstArgSet.length; i++) {
@@ -3540,27 +3535,27 @@ function parseRadialGradient(type, nodes) {
       case "circle":
       case "ellipse":
         hasOptionalArgs = true;
-        result.endingShape = arg.value;
+        endingShape = arg.value;
         break;
       case "closest-corner":
       case "closest-side":
       case "farthest-corner":
       case "farthest-side":
         hasOptionalArgs = true;
-        result.size = arg.value;
+        size = arg.value;
         break;
       case "at":
         hasOptionalArgs = true;
-        result.position = parsePosition(firstArgSet.slice(i + 1));
+        position = parsePosition(firstArgSet.slice(i + 1));
         break;
       default:
         if (!hasOptionalArgs) {
           let length = toUnit(arg, "px");
           if (length) {
-            if (!Array.isArray(result.size)) {
-              result.size = [];
+            if (!Array.isArray(size)) {
+              size = [];
             }
-            result.size.push(length);
+            size.push(length);
           } else {
             console.error(`Unexpected radial-gradient argument: ${arg.value}`);
             break;
@@ -3568,10 +3563,28 @@ function parseRadialGradient(type, nodes) {
         }
     }
   }
-  if (nodes.length > 0 && Array.isArray(nodes[0])) {
-    result.colorStops = nodes[0].map(toColorStopOrHint);
-  }
-  return result;
+  nodes.forEach((node) => {
+    if (node.type === "function" && node.value === "rgb") {
+      console.log("Color node found:", node);
+      const color = `rgba(${node.nodes.map((n) => n.value).join(", ")}, 1)`;
+      colorStops.push({ color, position: void 0 });
+    } else {
+      console.error("Unsupported node type in gradient:", node);
+    }
+  });
+  console.error("Radial gradient color stops:", colorStops);
+  return [
+    {
+      type,
+      endingShape,
+      // default
+      size,
+      // default
+      position,
+      // default
+      colorStops
+    }
+  ];
 }
 function parsePosition(args) {
   return args.map((arg) => arg.value).join(" ");
@@ -3633,21 +3646,6 @@ function toDegrees({ value, unit: unit2 }) {
 }
 function toRgba(node) {
   return (0, import_chroma_js3.default)(stringify(node)).gl();
-}
-function toColorStopOrHint(node) {
-  if (Array.isArray(node) && node.every(
-    (subNode) => typeof subNode === "object" && subNode.value !== void 0
-  )) {
-    return {
-      color: `rgba(${node[0].value}, ${node[1].value}, ${node[2].value}, ${node[3] ? node[3].value : 1})`,
-      // for RGB/RGBA
-      position: node.length >= 5 ? parseFloat(node[4].value) : void 0
-      // assuming a position can optionally follow RGBA values
-    };
-  } else {
-    console.error("Invalid node structure for color stops:", node);
-    return {};
-  }
 }
 function toAngularColorStopOrHint(nodes) {
   if (nodes.length === 1) {

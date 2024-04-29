@@ -170,16 +170,14 @@ function parseLinearGradient(type: any, nodes: any[]): LinearGradient[] {
   ];
 }
 
-function parseRadialGradient(type: string, nodes: any[]): RadialGradient {
+function parseRadialGradient(type: any, nodes: any[]): RadialGradient[] {
   console.log("Received nodes for Radial gradient:", nodes);
 
-  let result: Partial<RadialGradient> = {
-    type: type as RadialGradient["type"],
-    endingShape: "ellipse", // default
-    size: "farthest-corner", // default
-    position: "center", // default
-  };
-
+  // Initialize empty arrays or default configurations for gradient settings.
+  let endingShape: any = "ellipse";
+  let size: any = "farthest-corner";
+  let colorStops: any = [];
+  let position: string = "center";
   let hasOptionalArgs = false;
 
   // Handle the first set of arguments that define the shape, size, and position.
@@ -190,28 +188,28 @@ function parseRadialGradient(type: string, nodes: any[]): RadialGradient {
       case "circle":
       case "ellipse":
         hasOptionalArgs = true;
-        result.endingShape = arg.value;
+        endingShape = arg.value;
         break;
       case "closest-corner":
       case "closest-side":
       case "farthest-corner":
       case "farthest-side":
         hasOptionalArgs = true;
-        result.size = arg.value;
+        size = arg.value;
         break;
       case "at":
         hasOptionalArgs = true;
-        result.position = parsePosition(firstArgSet.slice(i + 1));
+        position = parsePosition(firstArgSet.slice(i + 1));
         break;
       default:
         if (!hasOptionalArgs) {
           // Check if it's a custom size argument
           let length = toUnit(arg, "px");
           if (length) {
-            if (!Array.isArray(result.size)) {
-              result.size = [];
+            if (!Array.isArray(size)) {
+              size = [];
             }
-            result.size.push(length);
+            size.push(length);
           } else {
             // Handle incorrect argument
             console.error(`Unexpected radial-gradient argument: ${arg.value}`);
@@ -221,13 +219,29 @@ function parseRadialGradient(type: string, nodes: any[]): RadialGradient {
     }
   }
 
-  // The remaining arguments should define color stops.
-  if (nodes.length > 0 && Array.isArray(nodes[0])) {
-    // Ensure that arguments are correct for color stops
-    result.colorStops = nodes[0].map(toColorStopOrHint);
-  }
+  nodes.forEach((node) => {
+    if (node.type === "function" && node.value === "rgb") {
+      console.log("Color node found:", node);
+      const color = `rgba(${node.nodes
+        .map((n: any) => n.value)
+        .join(", ")}, 1)`;
+      colorStops.push({ color: color, position: undefined }); // Position can be determined or left dynamic
+    } else {
+      console.error("Unsupported node type in gradient:", node);
+    }
+  });
 
-  return result as RadialGradient;
+  console.error("Radial gradient color stops:", colorStops);
+
+  return [
+    {
+      type: type,
+      endingShape: endingShape, // default
+      size: size, // default
+      position: position, // default
+      colorStops: colorStops,
+    },
+  ];
 }
 
 function parsePosition(args: any[]): string {
