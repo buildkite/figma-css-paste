@@ -4,7 +4,6 @@ import {
   ColorStop,
   RgbaColor,
 } from "../parsers/gradientParser";
-import { compose, scale, rotate, translate } from "../transform";
 
 function rgbaToFigmaRgba([r, g, b, a]: RgbaColor): RGBA {
   return { r: r / 255.0, g: g / 255.0, b: b / 255.0, a: a };
@@ -32,25 +31,21 @@ type GradientPaint = {
 };
 
 export function applyBackgroundImage(node: any, gradientCss: string) {
-  const gradients = cssToFigmaGradients(gradientCss, node.width, node.height);
+  const gradients = cssToFigmaGradients(gradientCss);
 
   node.fills = gradients.map((gradient) => ({
     type: gradient.type,
     gradientTransform: gradient.gradientTransform,
     gradientStops: gradient.gradientStops.map((stop) => ({
       color: stop.color,
-      position: stop.position, // Must be defined; check that defaulting logic is applied if necessary
+      position: stop.position, // Ensure this exists, or provide a default
     })),
   }));
 
   console.log("Node Fills Set:", node.fills);
 }
 
-function cssToFigmaGradients(
-  css: string,
-  width: number,
-  height: number
-): GradientPaint[] {
+function cssToFigmaGradients(css: string): GradientPaint[] {
   console.log("Converting CSS to Figma gradients", css);
 
   const parsedGradients = parseGradient(css);
@@ -62,29 +57,37 @@ function cssToFigmaGradients(
   // Assuming you are attempting to map or invoke further transformations on parsed gradients
   return parsedGradients.map((parsedGradient) => {
     console.log("Processing Gradient:", parsedGradient);
-    return convertParsedGradientToFigmaGradient(parsedGradient, width, height);
+    return convertParsedGradientToFigmaGradient(
+      parsedGradient,
+      parsedGradients.length
+    );
   });
 }
 
 function convertParsedGradientToFigmaGradient(
   parsedGradient: GradientNode,
-  width: number,
-  height: number
+  gradientLength: number
 ): GradientPaint {
   // Check for structural anomalies
   if (typeof parsedGradient !== "object" || !parsedGradient.type) {
     console.error("Invalid gradient data encountered", parsedGradient);
     throw new Error("Invalid gradient data provided.");
   }
+
+  const stopAmounts = parsedGradient.colorStops.length;
+
   // Convert colors and calculate transforms
   const figmaGradient: GradientPaint = {
     type: getFigmaGradientType(parsedGradient.type),
     gradientTransform: composeTransform(parsedGradient.angle || 0),
-    gradientStops: parsedGradient.colorStops.map((stop) => ({
-      color: convertColorToRGBA(stop.color),
-      position: stop.position, // Ensure this exists, or provide a default
-    })),
+    gradientStops: parsedGradient.colorStops.map(
+      (stop: any, index: number) => ({
+        color: convertColorToRGBA(stop.color),
+        position: getPosition(stop.color, index, stopAmounts, gradientLength), // Ensure this exists, or provide a default
+      })
+    ),
   };
+
   return figmaGradient;
 }
 
@@ -140,8 +143,6 @@ function getPosition(
   const normalize = (v: number) => Math.max(previousPosition, Math.min(1, v));
   if (stop.position) {
     if (stop.position.value <= 0) {
-      // TODO: add support for negative color stops, figma doesn't support it, instead we will
-      // have to scale the transform to fit the negative color stops
       return normalize(0);
     }
     switch (stop.position.unit) {
@@ -153,6 +154,12 @@ function getPosition(
         console.warn("Unsupported stop position unit: ", stop.position.unit);
     }
   }
+
+  console.error("Color stop:", stop);
+  console.error("Color index:", index);
+  console.error("Color stop total:", total);
+  console.error("Gradient length:", gradientLength);
+
   return normalize(index / (total - 1));
 }
 

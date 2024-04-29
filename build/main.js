@@ -3703,19 +3703,19 @@ var init_gradientParser = __esm({
 
 // src/utils/css/backgroundImage.ts
 function applyBackgroundImage(node, gradientCss) {
-  const gradients = cssToFigmaGradients(gradientCss, node.width, node.height);
+  const gradients = cssToFigmaGradients(gradientCss);
   node.fills = gradients.map((gradient) => ({
     type: gradient.type,
     gradientTransform: gradient.gradientTransform,
     gradientStops: gradient.gradientStops.map((stop) => ({
       color: stop.color,
       position: stop.position
-      // Must be defined; check that defaulting logic is applied if necessary
+      // Ensure this exists, or provide a default
     }))
   }));
   console.log("Node Fills Set:", node.fills);
 }
-function cssToFigmaGradients(css, width, height) {
+function cssToFigmaGradients(css) {
   console.log("Converting CSS to Figma gradients", css);
   const parsedGradients = parseGradient(css);
   if (!parsedGradients.length) {
@@ -3724,22 +3724,28 @@ function cssToFigmaGradients(css, width, height) {
   }
   return parsedGradients.map((parsedGradient) => {
     console.log("Processing Gradient:", parsedGradient);
-    return convertParsedGradientToFigmaGradient(parsedGradient, width, height);
+    return convertParsedGradientToFigmaGradient(
+      parsedGradient,
+      parsedGradients.length
+    );
   });
 }
-function convertParsedGradientToFigmaGradient(parsedGradient, width, height) {
+function convertParsedGradientToFigmaGradient(parsedGradient, gradientLength) {
   if (typeof parsedGradient !== "object" || !parsedGradient.type) {
     console.error("Invalid gradient data encountered", parsedGradient);
     throw new Error("Invalid gradient data provided.");
   }
+  const stopAmounts = parsedGradient.colorStops.length;
   const figmaGradient = {
     type: getFigmaGradientType(parsedGradient.type),
     gradientTransform: composeTransform(parsedGradient.angle || 0),
-    gradientStops: parsedGradient.colorStops.map((stop) => ({
-      color: convertColorToRGBA(stop.color),
-      position: stop.position
-      // Ensure this exists, or provide a default
-    }))
+    gradientStops: parsedGradient.colorStops.map(
+      (stop, index) => ({
+        color: convertColorToRGBA(stop.color),
+        position: getPosition(stop.color, index, stopAmounts, gradientLength)
+        // Ensure this exists, or provide a default
+      })
+    )
   };
   return figmaGradient;
 }
@@ -3769,6 +3775,29 @@ function convertColorToRGBA(color) {
   let b = parseInt(colorParts[2]) / 255;
   let a = colorParts.length > 3 ? parseFloat(colorParts[3]) : 1;
   return { r, g, b, a };
+}
+function getPosition(stop, index, total, gradientLength, previousPosition = 0) {
+  if (total <= 1)
+    return 0;
+  const normalize = (v) => Math.max(previousPosition, Math.min(1, v));
+  if (stop.position) {
+    if (stop.position.value <= 0) {
+      return normalize(0);
+    }
+    switch (stop.position.unit) {
+      case "%":
+        return normalize(stop.position.value / 100);
+      case "px":
+        return normalize(stop.position.value / gradientLength);
+      default:
+        console.warn("Unsupported stop position unit: ", stop.position.unit);
+    }
+  }
+  console.error("Color stop:", stop);
+  console.error("Color index:", index);
+  console.error("Color stop total:", total);
+  console.error("Gradient length:", gradientLength);
+  return normalize(index / (total - 1));
 }
 var init_backgroundImage = __esm({
   "src/utils/css/backgroundImage.ts"() {

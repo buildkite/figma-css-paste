@@ -5,7 +5,7 @@ import { unit } from "@/utils/units";
 
 export type GradientTypes = LinearGradient[] | RadialGradient | ConicGradient;
 
-interface GradientNode {
+export interface GradientNode {
   type: GradientTypes;
   nodes: FunctionNode[];
 }
