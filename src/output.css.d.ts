@@ -95,6 +95,7 @@ declare const styles: {
   readonly "text-transparent": string;
   readonly "text-white": string;
   readonly "top-0": string;
+  readonly "transform": string;
   readonly "truncate": string;
   readonly "underline": string;
   readonly "uppercase": string;

@@ -1,7 +1,12 @@
 {
   "extends": "@create-figma-plugin/tsconfig",
   "compilerOptions": {
-    "typeRoots": ["node_modules/@figma", "node_modules/@types"]
+    "target": "ES2022",
+    "skipLibCheck": true,
+    "typeRoots": ["node_modules/@figma", "node_modules/@types"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/utils/parse.ts"]
 }

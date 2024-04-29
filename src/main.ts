@@ -2,6 +2,7 @@ import { on, showUI } from "@create-figma-plugin/utilities";
 
 import { applyTextColor } from "./utils/css/color";
 import { applyBackgroundColor } from "./utils/css/background";
+import { applyBackgroundImage } from "./utils/css/backgroundImage";
 import {
   applyBorderShorthand,
   applyBorderColor,
@@ -54,6 +55,9 @@ const stylerFunctions: { [key: string]: any } = {
   color: { applyFn: applyTextColor },
   "background-color": { applyFn: applyBackgroundColor },
   border: { applyFn: applyBorderShorthand, parser: parseBorderProperty },
+  "background-image": {
+    applyFn: applyBackgroundImage,
+  },
   "border-top-width": { applyFn: applyTopStrokeWidth },
   "border-right-width": { applyFn: applyRightStrokeWidth },
   "border-bottom-width": { applyFn: applyBottomStrokeWidth },
