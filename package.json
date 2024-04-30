@@ -27,7 +27,7 @@
     "editorType": [
       "figma"
     ],
-    "id": "buildkite-css-paint",
+    "id": "1367032145510561757",
     "name": "CSSPaint",
     "main": "src/main.ts",
     "ui": "src/ui.tsx",
