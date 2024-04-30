@@ -7,6 +7,5 @@
   "name": "CSSPaint",
   "main": "build/main.js",
   "ui": "build/ui.js",
-  "documentAccess": "dynamic-page",
-  "networkAccess": "none"
+  "documentAccess": "dynamic-page"
 }
