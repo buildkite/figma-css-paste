@@ -56,5 +56,5 @@ export function applyGap(node: any, gap: string) {
 
 // Function to set flex grow
 export function applyFlexGrow(node: any, grow: string) {
-  node.itemSpalayoutGrowcing = parseFloat(grow);
+  node.layoutGrow = parseFloat(grow);
 }
