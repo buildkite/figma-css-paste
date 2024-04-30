@@ -2,6 +2,7 @@ import chroma from "chroma-js";
 import { parse } from "@/utils/extractStyles";
 import { stringify } from "@/utils/stringify";
 import { unit } from "@/utils/units";
+import { detectCSSColor } from "@/utils/detectColor";
 
 export type GradientTypes = LinearGradient[] | RadialGradient | ConicGradient;
 
@@ -148,15 +149,15 @@ function parseLinearGradient(type: any, nodes: any[]): LinearGradient[] {
   nodes.forEach((node) => {
     if (node.type === "number") {
       console.log("Angle node found:", node);
-      angle = node.value; // Assuming the first number type is always the angle
-    } else if (node.type === "function" && node.value === "rgb") {
+      angle = node.value;
+    } else if (node.type === "function") {
       console.log("Color node found:", node);
-      const color = `rgba(${node.nodes
-        .map((n: any) => n.value)
-        .join(", ")}, 1)`;
-      colorStops.push({ color: color, position: undefined }); // Position can be determined or left dynamic
-    } else {
-      console.error("Unsupported node type in gradient:", node);
+      const color = detectCSSColor(node);
+      if (color) {
+        colorStops.push({ color: color, position: undefined });
+      } else {
+        console.error("Unsupported node type in gradient:", node);
+      }
     }
   });
 
@@ -173,14 +174,14 @@ function parseLinearGradient(type: any, nodes: any[]): LinearGradient[] {
 function parseRadialGradient(type: any, nodes: any[]): RadialGradient[] {
   console.log("Received nodes for Radial gradient:", nodes);
 
-  // Initialize empty arrays or default configurations for gradient settings.
+  // Initialize empty arrays or default configurations for gradient settings
   let endingShape: any = "ellipse";
   let size: any = "farthest-corner";
   let colorStops: any = [];
   let position: string = "center";
   let hasOptionalArgs = false;
 
-  // Handle the first set of arguments that define the shape, size, and position.
+  // Handle the first set of arguments that define the shape, size, and position
   const firstArgSet = nodes.shift() || [];
   for (let i = 0; i < firstArgSet.length; i++) {
     const arg = firstArgSet[i];
@@ -220,14 +221,14 @@ function parseRadialGradient(type: any, nodes: any[]): RadialGradient[] {
   }
 
   nodes.forEach((node) => {
-    if (node.type === "function" && node.value === "rgb") {
+    if (node.type === "function") {
       console.log("Color node found:", node);
-      const color = `rgba(${node.nodes
-        .map((n: any) => n.value)
-        .join(", ")}, 1)`;
-      colorStops.push({ color: color, position: undefined }); // Position can be determined or left dynamic
-    } else {
-      console.error("Unsupported node type in gradient:", node);
+      const color = detectCSSColor(node);
+      if (color) {
+        colorStops.push({ color: color, position: undefined });
+      } else {
+        console.error("Unsupported node type in gradient:", node);
+      }
     }
   });
 
@@ -236,9 +237,9 @@ function parseRadialGradient(type: any, nodes: any[]): RadialGradient[] {
   return [
     {
       type: type,
-      endingShape: endingShape, // default
-      size: size, // default
-      position: position, // default
+      endingShape: endingShape,
+      size: size,
+      position: position,
       colorStops: colorStops,
     },
   ];

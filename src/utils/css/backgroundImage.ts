@@ -155,10 +155,10 @@ function getPosition(
     }
   }
 
-  console.error("Color stop:", stop);
-  console.error("Color index:", index);
-  console.error("Color stop total:", total);
-  console.error("Gradient length:", gradientLength);
+  console.log("Color stop:", stop);
+  console.log("Color index:", index);
+  console.log("Color stop total:", total);
+  console.log("Gradient length:", gradientLength);
 
   return normalize(index / (total - 1));
 }
