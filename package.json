@@ -30,6 +30,7 @@
     "id": "buildkite-css-paint",
     "name": "CSSPaint",
     "main": "src/main.ts",
-    "ui": "src/ui.tsx"
+    "ui": "src/ui.tsx",
+    "documentAccess": "dynamic-page"
   }
 }
