@@ -725,10 +725,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/72621406-5b0e-4322-959b-a4d024522e6e/loading-indicator.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c7ece226-31c5-4781-bc93-9ed83f1265e8/loading-indicator.module.js
   var loading_indicator_module_default;
   var init_loading_indicator_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/72621406-5b0e-4322-959b-a4d024522e6e/loading-indicator.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c7ece226-31c5-4781-bc93-9ed83f1265e8/loading-indicator.module.js"() {
       if (document.getElementById("c891e05b54") === null) {
         const element = document.createElement("style");
         element.id = "c891e05b54";
@@ -789,10 +789,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/6842ec02-6de4-4419-a91a-52c16801adb5/button.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/17ee7370-a1c5-454d-a38e-8b5c3f698226/button.module.js
   var button_module_default;
   var init_button_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/6842ec02-6de4-4419-a91a-52c16801adb5/button.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/17ee7370-a1c5-454d-a38e-8b5c3f698226/button.module.js"() {
       if (document.getElementById("4cebeccae6") === null) {
         const element = document.createElement("style");
         element.id = "4cebeccae6";
@@ -1192,9 +1192,9 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/f7a77055-e3fe-486e-bae9-858954116b36/base.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/43c0b4f8-f2a3-47f0-94f3-df705d9480c0/base.js
   var init_base = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/f7a77055-e3fe-486e-bae9-858954116b36/base.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/43c0b4f8-f2a3-47f0-94f3-df705d9480c0/base.js"() {
       if (document.getElementById("cfec39da5a") === null) {
         const element = document.createElement("style");
         element.id = "cfec39da5a";
@@ -1323,9 +1323,9 @@ svg {
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/1ee4faf4-e3c3-46b5-b0a3-9a7a176fd32a/output.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/262e251f-3856-4932-b41c-48f5325c3367/output.js
   var init_output = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/1ee4faf4-e3c3-46b5-b0a3-9a7a176fd32a/output.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/262e251f-3856-4932-b41c-48f5325c3367/output.js"() {
       if (document.getElementById("d735de220f") === null) {
         const element = document.createElement("style");
         element.id = "d735de220f";
@@ -2082,6 +2082,14 @@ video {
   padding: 1rem;
 }
 
+.pb-12 {
+  padding-bottom: 3rem;
+}
+
+.pb-24 {
+  padding-bottom: 6rem;
+}
+
 .text-right {
   text-align: right;
 }
@@ -2462,21 +2470,10 @@ textarea {
     });
     const [value, setValue] = p2("");
     const [message, setMessage] = p2("Apply Styles");
-    function handleBlur(event) {
-      const rawCSS = event.currentTarget.value;
-      const parsedCSS = parseCss(rawCSS);
-      let newCSS = "";
-      for (const property in parsedCSS) {
-        newCSS += `${property}: ${parsedCSS[property]};
-`;
-      }
-      setValue(newCSS);
-    }
-    function handleInput(event) {
-      const newValue = event.currentTarget.value;
-      setValue(newValue);
-    }
+    const [originalValue, setOriginalValue] = p2("");
+    const [formattedValue, setFormattedValue] = p2("");
     const [timeoutId, setTimeoutId] = p2(null);
+    const textAreaRef = F2(null);
     _2(() => {
       return () => {
         if (timeoutId) {
@@ -2484,9 +2481,26 @@ textarea {
         }
       };
     }, [timeoutId]);
+    function handleInput(event) {
+      const newValue = event.currentTarget.value;
+      setOriginalValue(newValue);
+    }
     function handleClick() {
+      const rawCSS = originalValue.split("\n").map((line) => {
+        const [property, ...valueParts] = line.split(" ");
+        return `${property}: ${valueParts.join(" ")};`;
+      }).join("\n");
+      const parsedCSS = parseCss(rawCSS);
+      let formattedCSS = "";
+      for (const property in parsedCSS) {
+        formattedCSS += `${property}: ${parsedCSS[property]};
+`;
+      }
+      if (textAreaRef.current) {
+        textAreaRef.current.value = formattedCSS;
+      }
       try {
-        emit("APPLY_CSS", value);
+        emit("APPLY_CSS", formattedCSS);
         setMessage("Styles applied successfully!");
         const id = setTimeout(() => {
           setMessage("Apply Styles");
@@ -2499,11 +2513,11 @@ textarea {
     return /* @__PURE__ */ g("div", { className: "flex flex-col h-full relative" }, /* @__PURE__ */ g("div", { className: "absolute bottom-4 left-4 right-4 w-auto" }, /* @__PURE__ */ g(Button, { fullWidth: true, onClick: handleClick }, message)), /* @__PURE__ */ g(
       "textarea",
       {
+        ref: textAreaRef,
         placeholder: "// Paste your CSS",
         onInput: handleInput,
-        onBlur: handleBlur,
-        value,
-        className: "p-2 h-full bg-[#2C2C2C] text-lime-300 font-mono placeholder:text-white placeholder:text-opacity-30"
+        defaultValue: value,
+        className: "p-2 pb-24 h-full bg-[#2C2C2C] text-lime-300 font-mono placeholder:text-white placeholder:text-opacity-30"
       }
     ));
   }

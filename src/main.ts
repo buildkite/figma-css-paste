@@ -52,6 +52,8 @@ import { applyPadding, parsePadding } from "./utils/css/padding";
 import { applyTextShadow, parseTextShadow } from "./utils/css/textShadow";
 
 const stylerFunctions: { [key: string]: any } = {
+  width: { applyFn: applyWidth },
+  height: { applyFn: applyHeight },
   color: { applyFn: applyTextColor },
   "background-color": { applyFn: applyBackgroundColor },
   border: { applyFn: applyBorderShorthand, parser: parseBorderProperty },
@@ -109,8 +111,6 @@ const stylerFunctions: { [key: string]: any } = {
   overflow: { applyFn: applyOverflow },
   "overflow-y": { applyFn: applyOverflow },
   "overflow-x": { applyFn: applyOverflow },
-  width: { applyFn: applyWidth },
-  height: { applyFn: applyHeight },
 };
 
 export default function () {

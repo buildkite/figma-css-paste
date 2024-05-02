@@ -4202,8 +4202,17 @@ var init_rotate = __esm({
 
 // src/utils/css/width.ts
 function applyWidth(node, width) {
-  const widthToApply = parseFloat(width);
-  node.resize(widthToApply, node.height);
+  if (width.toLowerCase() === "auto") {
+    node.layoutGrow = 1;
+  } else {
+    let widthToApply = parseFloat(width);
+    widthToApply = Math.round(widthToApply);
+    if (!isNaN(widthToApply) && widthToApply >= 0.01) {
+      node.resize(widthToApply, node.height);
+    } else {
+      console.error("Invalid width value: ", width);
+    }
+  }
 }
 var init_width = __esm({
   "src/utils/css/width.ts"() {
@@ -4213,8 +4222,17 @@ var init_width = __esm({
 
 // src/utils/css/height.ts
 function applyHeight(node, height) {
-  const heightToApply = parseFloat(height);
-  node.resize(node.width, heightToApply);
+  if (height.toLowerCase() === "auto") {
+    node.layoutGrow = 1;
+  } else {
+    let heightToApply = parseFloat(height);
+    heightToApply = Math.round(heightToApply);
+    if (!isNaN(heightToApply) && heightToApply >= 0.01) {
+      node.resize(node.width, heightToApply);
+    } else {
+      console.error("Invalid height value: ", height);
+    }
+  }
 }
 var init_height = __esm({
   "src/utils/css/height.ts"() {
@@ -4438,6 +4456,12 @@ function applyPadding(node, paddingValues) {
     padding.left = paddingValues[3];
   }
   if (node.layoutMode !== "NONE") {
+    if (padding.top !== 0 && padding.bottom !== 0) {
+      node.layoutSizingVertical = "HUG";
+    }
+    if (padding.right !== 0 && padding.left !== 0) {
+      node.layoutSizingHorizontal = "HUG";
+    }
     node.paddingTop = padding.top;
     node.paddingRight = padding.right;
     node.paddingBottom = padding.bottom;
@@ -4562,6 +4586,8 @@ var init_main = __esm({
     init_padding();
     init_textShadow();
     stylerFunctions = {
+      width: { applyFn: applyWidth },
+      height: { applyFn: applyHeight },
       color: { applyFn: applyTextColor },
       "background-color": { applyFn: applyBackgroundColor },
       border: { applyFn: applyBorderShorthand, parser: parseBorderProperty },
@@ -4618,9 +4644,7 @@ var init_main = __esm({
       opacity: { applyFn: applyOpacity },
       overflow: { applyFn: applyOverflow },
       "overflow-y": { applyFn: applyOverflow },
-      "overflow-x": { applyFn: applyOverflow },
-      width: { applyFn: applyWidth },
-      height: { applyFn: applyHeight }
+      "overflow-x": { applyFn: applyOverflow }
     };
   }
 });

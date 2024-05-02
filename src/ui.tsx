@@ -2,7 +2,7 @@ import { render, useWindowResize, Button } from "@create-figma-plugin/ui";
 import { JSX, h } from "preact";
 import "!./output.css";
 import { emit } from "@create-figma-plugin/utilities";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { parseCss } from "./utils/extractStyles";
 
 function Plugin() {
@@ -19,26 +19,11 @@ function Plugin() {
 
   const [value, setValue] = useState<string>("");
   const [message, setMessage] = useState<string>("Apply Styles");
+  const [originalValue, setOriginalValue] = useState<string>("");
+  const [formattedValue, setFormattedValue] = useState<string>("");
+  const [timeoutId, setTimeoutId] = useState<number | null>(null);
 
-  // Reorder CSS so color it's first before submission because Figma things
-  function handleBlur(event: JSX.TargetedEvent<HTMLTextAreaElement>) {
-    const rawCSS = event.currentTarget.value;
-    const parsedCSS = parseCss(rawCSS);
-
-    let newCSS = "";
-    for (const property in parsedCSS) {
-      newCSS += `${property}: ${parsedCSS[property]};\n`;
-    }
-
-    setValue(newCSS);
-  }
-
-  function handleInput(event: JSX.TargetedEvent<HTMLTextAreaElement>) {
-    const newValue = event.currentTarget.value;
-    setValue(newValue);
-  }
-
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const textAreaRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     return () => {
@@ -48,14 +33,38 @@ function Plugin() {
     };
   }, [timeoutId]);
 
+  function handleInput(event: JSX.TargetedEvent<HTMLTextAreaElement>) {
+    const newValue = event.currentTarget.value;
+    setOriginalValue(newValue);
+  }
+
   function handleClick() {
+    const rawCSS = originalValue
+      .split("\n")
+      .map((line) => {
+        const [property, ...valueParts] = line.split(" ");
+        return `${property}: ${valueParts.join(" ")};`;
+      })
+      .join("\n");
+
+    const parsedCSS = parseCss(rawCSS);
+    let formattedCSS = "";
+    for (const property in parsedCSS) {
+      formattedCSS += `${property}: ${parsedCSS[property]};\n`;
+    }
+
+    if (textAreaRef.current) {
+      textAreaRef.current.value = formattedCSS;
+    }
+
     try {
-      emit("APPLY_CSS", value);
+      emit("APPLY_CSS", formattedCSS);
       setMessage("Styles applied successfully!");
 
       const id = setTimeout(() => {
         setMessage("Apply Styles");
       }, 1000);
+
       setTimeoutId(id);
     } catch (error) {
       setMessage("An error occurred while applying styles");
@@ -70,11 +79,11 @@ function Plugin() {
         </Button>
       </div>
       <textarea
+        ref={textAreaRef}
         placeholder="// Paste your CSS"
         onInput={handleInput}
-        onBlur={handleBlur}
-        value={value}
-        className="p-2 h-full bg-[#2C2C2C] text-lime-300 font-mono placeholder:text-white placeholder:text-opacity-30"
+        defaultValue={value}
+        className="p-2 pb-24 h-full bg-[#2C2C2C] text-lime-300 font-mono placeholder:text-white placeholder:text-opacity-30"
       />
     </div>
   );

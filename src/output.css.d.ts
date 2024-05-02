@@ -55,6 +55,8 @@ declare const styles: {
   readonly "overline": string;
   readonly "p-2": string;
   readonly "p-4": string;
+  readonly "pb-12": string;
+  readonly "pb-24": string;
   readonly "placeholder:text-gray-500": string;
   readonly "placeholder:text-indigo-400": string;
   readonly "placeholder:text-indigo-700": string;

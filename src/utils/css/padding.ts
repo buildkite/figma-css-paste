@@ -32,6 +32,12 @@ export function applyPadding(node: any, paddingValues: number[]) {
   }
 
   if (node.layoutMode !== "NONE") {
+    if (padding.top !== 0 && padding.bottom !== 0) {
+      node.layoutSizingVertical = "HUG";
+    }
+    if (padding.right !== 0 && padding.left !== 0) {
+      node.layoutSizingHorizontal = "HUG";
+    }
     node.paddingTop = padding.top;
     node.paddingRight = padding.right;
     node.paddingBottom = padding.bottom;
