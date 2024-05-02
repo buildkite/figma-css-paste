@@ -114,7 +114,14 @@ const stylerFunctions: { [key: string]: any } = {
 };
 
 export default function () {
-  const options = { width: 300, height: 360 };
+  const options = {
+    width: 300,
+    height: 360,
+  };
+
+  const data = {
+    isDisabled: figma.currentPage.selection.length === 0, // disable if nothing is selected
+  };
 
   on("RESIZE_WINDOW", function (windowSize: { width: number; height: number }) {
     const { width, height } = windowSize;
@@ -138,5 +145,24 @@ export default function () {
     });
   });
 
+  function checkSelection() {
+    if (figma.currentPage.selection.length > 0) {
+      // Not disabled
+      figma.ui.postMessage({ type: "selectionChanged", disabled: false });
+    } else {
+      // Disabled
+      figma.ui.postMessage({ type: "selectionChanged", disabled: true });
+    }
+  }
+
+  // Listen for selection changes
+  figma.on("selectionchange", () => {
+    checkSelection();
+  });
+
   showUI(options);
+  figma.ui.postMessage({
+    type: "INITIAL",
+    isDisabled: figma.currentPage.selection.length === 0,
+  });
 }

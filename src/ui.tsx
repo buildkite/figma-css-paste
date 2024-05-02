@@ -25,6 +25,18 @@ function Plugin() {
 
   const textAreaRef = useRef<HTMLInputElement>(null);
 
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    window.onmessage = (event) => {
+      if (event.data.pluginMessage.type === "INITIAL") {
+        setDisabled(event.data.pluginMessage.isDisabled);
+      } else if (event.data.pluginMessage.type === "selectionChanged") {
+        setDisabled(event.data.pluginMessage.disabled);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     return () => {
       if (timeoutId) {
@@ -74,7 +86,7 @@ function Plugin() {
   return (
     <div className="flex flex-col h-full relative">
       <div className="absolute bottom-4 left-4 right-4 w-auto">
-        <Button fullWidth onClick={handleClick}>
+        <Button fullWidth onClick={handleClick} disabled={disabled}>
           {message}
         </Button>
       </div>

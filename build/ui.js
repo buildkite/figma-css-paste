@@ -725,10 +725,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c7ece226-31c5-4781-bc93-9ed83f1265e8/loading-indicator.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/b2b1c8d8-e98a-4ff1-873b-b6d0f7280df1/loading-indicator.module.js
   var loading_indicator_module_default;
   var init_loading_indicator_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/c7ece226-31c5-4781-bc93-9ed83f1265e8/loading-indicator.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/b2b1c8d8-e98a-4ff1-873b-b6d0f7280df1/loading-indicator.module.js"() {
       if (document.getElementById("c891e05b54") === null) {
         const element = document.createElement("style");
         element.id = "c891e05b54";
@@ -789,10 +789,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/17ee7370-a1c5-454d-a38e-8b5c3f698226/button.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/4abb643e-fe34-44bf-9145-23d6acd33349/button.module.js
   var button_module_default;
   var init_button_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/17ee7370-a1c5-454d-a38e-8b5c3f698226/button.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/4abb643e-fe34-44bf-9145-23d6acd33349/button.module.js"() {
       if (document.getElementById("4cebeccae6") === null) {
         const element = document.createElement("style");
         element.id = "4cebeccae6";
@@ -1192,9 +1192,9 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/43c0b4f8-f2a3-47f0-94f3-df705d9480c0/base.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/f69ec2c0-89d7-453f-8fd5-ac57eda7c78e/base.js
   var init_base = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/43c0b4f8-f2a3-47f0-94f3-df705d9480c0/base.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/f69ec2c0-89d7-453f-8fd5-ac57eda7c78e/base.js"() {
       if (document.getElementById("cfec39da5a") === null) {
         const element = document.createElement("style");
         element.id = "cfec39da5a";
@@ -1323,9 +1323,9 @@ svg {
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/262e251f-3856-4932-b41c-48f5325c3367/output.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/8724eb09-3ad5-4718-baab-0b7a886159dc/output.js
   var init_output = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/262e251f-3856-4932-b41c-48f5325c3367/output.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/8724eb09-3ad5-4718-baab-0b7a886159dc/output.js"() {
       if (document.getElementById("d735de220f") === null) {
         const element = document.createElement("style");
         element.id = "d735de220f";
@@ -2474,6 +2474,16 @@ textarea {
     const [formattedValue, setFormattedValue] = p2("");
     const [timeoutId, setTimeoutId] = p2(null);
     const textAreaRef = F2(null);
+    const [disabled, setDisabled] = p2(false);
+    _2(() => {
+      window.onmessage = (event) => {
+        if (event.data.pluginMessage.type === "INITIAL") {
+          setDisabled(event.data.pluginMessage.isDisabled);
+        } else if (event.data.pluginMessage.type === "selectionChanged") {
+          setDisabled(event.data.pluginMessage.disabled);
+        }
+      };
+    }, []);
     _2(() => {
       return () => {
         if (timeoutId) {
@@ -2510,7 +2520,7 @@ textarea {
         setMessage("An error occurred while applying styles");
       }
     }
-    return /* @__PURE__ */ g("div", { className: "flex flex-col h-full relative" }, /* @__PURE__ */ g("div", { className: "absolute bottom-4 left-4 right-4 w-auto" }, /* @__PURE__ */ g(Button, { fullWidth: true, onClick: handleClick }, message)), /* @__PURE__ */ g(
+    return /* @__PURE__ */ g("div", { className: "flex flex-col h-full relative" }, /* @__PURE__ */ g("div", { className: "absolute bottom-4 left-4 right-4 w-auto" }, /* @__PURE__ */ g(Button, { fullWidth: true, onClick: handleClick, disabled }, message)), /* @__PURE__ */ g(
       "textarea",
       {
         ref: textAreaRef,

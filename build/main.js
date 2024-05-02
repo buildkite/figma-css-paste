@@ -4538,7 +4538,14 @@ __export(main_exports, {
   default: () => main_default
 });
 function main_default() {
-  const options = { width: 300, height: 360 };
+  const options = {
+    width: 300,
+    height: 360
+  };
+  const data = {
+    isDisabled: figma.currentPage.selection.length === 0
+    // disable if nothing is selected
+  };
   on("RESIZE_WINDOW", function(windowSize) {
     const { width, height } = windowSize;
     figma.ui.resize(width, height);
@@ -4558,7 +4565,21 @@ function main_default() {
       }
     });
   });
+  function checkSelection() {
+    if (figma.currentPage.selection.length > 0) {
+      figma.ui.postMessage({ type: "selectionChanged", disabled: false });
+    } else {
+      figma.ui.postMessage({ type: "selectionChanged", disabled: true });
+    }
+  }
+  figma.on("selectionchange", () => {
+    checkSelection();
+  });
   showUI(options);
+  figma.ui.postMessage({
+    type: "INITIAL",
+    isDisabled: figma.currentPage.selection.length === 0
+  });
 }
 var stylerFunctions;
 var init_main = __esm({
