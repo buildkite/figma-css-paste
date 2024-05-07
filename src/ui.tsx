@@ -87,7 +87,7 @@ function Plugin() {
     <div className="flex flex-col h-full relative">
       <div className="absolute bottom-4 left-4 right-4 w-auto">
         <Button fullWidth onClick={handleClick} disabled={disabled}>
-          {message}
+          {disabled ? "Please select a layer or frame" : message}
         </Button>
       </div>
       <textarea

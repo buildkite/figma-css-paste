@@ -725,10 +725,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/544e12c3-e094-4768-880e-dffedbe08816/loading-indicator.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/4b82a13d-0fd3-4654-9438-3e31a8e1344d/loading-indicator.module.js
   var loading_indicator_module_default;
   var init_loading_indicator_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/544e12c3-e094-4768-880e-dffedbe08816/loading-indicator.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/4b82a13d-0fd3-4654-9438-3e31a8e1344d/loading-indicator.module.js"() {
       if (document.getElementById("c891e05b54") === null) {
         const element = document.createElement("style");
         element.id = "c891e05b54";
@@ -789,10 +789,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/30989146-a3b6-4932-923f-d664822104d0/button.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/fb06259b-4b67-436f-9ecf-f531552fffdc/button.module.js
   var button_module_default;
   var init_button_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/30989146-a3b6-4932-923f-d664822104d0/button.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/fb06259b-4b67-436f-9ecf-f531552fffdc/button.module.js"() {
       if (document.getElementById("4cebeccae6") === null) {
         const element = document.createElement("style");
         element.id = "4cebeccae6";
@@ -1192,9 +1192,9 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/910101d0-fae5-44b2-877e-ae8b15642c2a/base.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/0b391e1f-370f-41bd-a83f-7e40364ec5f2/base.js
   var init_base = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/910101d0-fae5-44b2-877e-ae8b15642c2a/base.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/0b391e1f-370f-41bd-a83f-7e40364ec5f2/base.js"() {
       if (document.getElementById("cfec39da5a") === null) {
         const element = document.createElement("style");
         element.id = "cfec39da5a";
@@ -1323,9 +1323,9 @@ svg {
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/f1f53a67-fbb1-4c23-a3bf-ec7810a578a2/output.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/9298440f-61b2-4fa3-95ac-d0a976aad102/output.js
   var init_output = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/f1f53a67-fbb1-4c23-a3bf-ec7810a578a2/output.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/9298440f-61b2-4fa3-95ac-d0a976aad102/output.js"() {
       if (document.getElementById("d735de220f") === null) {
         const element = document.createElement("style");
         element.id = "d735de220f";
@@ -2555,7 +2555,7 @@ textarea {
         setMessage("An error occurred while applying styles");
       }
     }
-    return /* @__PURE__ */ g("div", { className: "flex flex-col h-full relative" }, /* @__PURE__ */ g("div", { className: "absolute bottom-4 left-4 right-4 w-auto" }, /* @__PURE__ */ g(Button, { fullWidth: true, onClick: handleClick, disabled }, message)), /* @__PURE__ */ g(
+    return /* @__PURE__ */ g("div", { className: "flex flex-col h-full relative" }, /* @__PURE__ */ g("div", { className: "absolute bottom-4 left-4 right-4 w-auto" }, /* @__PURE__ */ g(Button, { fullWidth: true, onClick: handleClick, disabled }, disabled ? "Please select a layer or frame" : message)), /* @__PURE__ */ g(
       "textarea",
       {
         ref: textAreaRef,
