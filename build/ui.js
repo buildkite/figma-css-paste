@@ -725,10 +725,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/42c85224-d3a8-4173-995f-082f18deea5c/loading-indicator.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/544e12c3-e094-4768-880e-dffedbe08816/loading-indicator.module.js
   var loading_indicator_module_default;
   var init_loading_indicator_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/42c85224-d3a8-4173-995f-082f18deea5c/loading-indicator.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/544e12c3-e094-4768-880e-dffedbe08816/loading-indicator.module.js"() {
       if (document.getElementById("c891e05b54") === null) {
         const element = document.createElement("style");
         element.id = "c891e05b54";
@@ -789,10 +789,10 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/b6c58e86-3fed-4970-b806-e7f0ae0a00b8/button.module.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/30989146-a3b6-4932-923f-d664822104d0/button.module.js
   var button_module_default;
   var init_button_module = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/b6c58e86-3fed-4970-b806-e7f0ae0a00b8/button.module.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/30989146-a3b6-4932-923f-d664822104d0/button.module.js"() {
       if (document.getElementById("4cebeccae6") === null) {
         const element = document.createElement("style");
         element.id = "4cebeccae6";
@@ -1192,9 +1192,9 @@
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/076341d1-91c7-40ba-aeda-47cc5be50887/base.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/910101d0-fae5-44b2-877e-ae8b15642c2a/base.js
   var init_base = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/076341d1-91c7-40ba-aeda-47cc5be50887/base.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/910101d0-fae5-44b2-877e-ae8b15642c2a/base.js"() {
       if (document.getElementById("cfec39da5a") === null) {
         const element = document.createElement("style");
         element.id = "cfec39da5a";
@@ -1323,9 +1323,9 @@ svg {
     }
   });
 
-  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/33ea114b-5389-45e6-b1d4-ffe1e5f82240/output.js
+  // ../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/f1f53a67-fbb1-4c23-a3bf-ec7810a578a2/output.js
   var init_output = __esm({
-    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/33ea114b-5389-45e6-b1d4-ffe1e5f82240/output.js"() {
+    "../../../../../private/var/folders/td/msx0zz9s60s3fvr517s664mc0000gn/T/f1f53a67-fbb1-4c23-a3bf-ec7810a578a2/output.js"() {
       if (document.getElementById("d735de220f") === null) {
         const element = document.createElement("style");
         element.id = "d735de220f";
@@ -2171,6 +2171,21 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.text-lime-900 {
+  --tw-text-opacity: 1;
+  color: rgb(54 83 20 / var(--tw-text-opacity));
+}
+
+.text-blue-700 {
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity));
+}
+
 .text-opacity-30 {
   --tw-text-opacity: 0.3;
 }
@@ -2430,6 +2445,26 @@ textarea {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(13 153 255 / var(--tw-ring-opacity));
 }
+
+.dark\\:text-black:is(.figma-dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.dark\\:text-lime-300:is(.figma-dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(190 242 100 / var(--tw-text-opacity));
+}
+
+.dark\\:placeholder\\:text-white:is(.figma-dark *)::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.dark\\:placeholder\\:text-white:is(.figma-dark *)::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
 `;
         document.head.append(element);
       }
@@ -2527,7 +2562,7 @@ textarea {
         placeholder: "// Paste your CSS",
         onInput: handleInput,
         defaultValue: value,
-        className: "p-2 pb-24 h-full bg-[#2C2C2C] text-lime-300 font-mono placeholder:text-white placeholder:text-opacity-30"
+        className: "p-2 pb-24 h-full bg-[#2C2C2C] text-blue-700 dark:text-lime-300 font-mono dark:placeholder:text-white placeholder:text-opacity-30"
       }
     ));
   }

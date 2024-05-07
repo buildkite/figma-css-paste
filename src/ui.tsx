@@ -95,7 +95,7 @@ function Plugin() {
         placeholder="// Paste your CSS"
         onInput={handleInput}
         defaultValue={value}
-        className="p-2 pb-24 h-full bg-[#2C2C2C] text-lime-300 font-mono placeholder:text-white placeholder:text-opacity-30"
+        className="p-2 pb-24 h-full bg-[#2C2C2C] text-blue-700 dark:text-lime-300 font-mono dark:placeholder:text-white placeholder:text-opacity-30"
       />
     </div>
   );

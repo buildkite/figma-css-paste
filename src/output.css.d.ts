@@ -15,6 +15,10 @@ declare const styles: {
   readonly "bottom-6": string;
   readonly "capitalize": string;
   readonly "cursor-text": string;
+  readonly "dark:placeholder:text-white": string;
+  readonly "dark:text-black": string;
+  readonly "dark:text-lime-300": string;
+  readonly "figma-dark": string;
   readonly "filter": string;
   readonly "flex": string;
   readonly "flex-1": string;
@@ -82,6 +86,8 @@ declare const styles: {
   readonly "shadow": string;
   readonly "space-x-4": string;
   readonly "text-3xl": string;
+  readonly "text-black": string;
+  readonly "text-blue-700": string;
   readonly "text-gray-500": string;
   readonly "text-indigo-400": string;
   readonly "text-indigo-700": string;
@@ -91,6 +97,7 @@ declare const styles: {
   readonly "text-indigo-900": string;
   readonly "text-lime-300": string;
   readonly "text-lime-500": string;
+  readonly "text-lime-900": string;
   readonly "text-opacity-30": string;
   readonly "text-opacity-50": string;
   readonly "text-right": string;
